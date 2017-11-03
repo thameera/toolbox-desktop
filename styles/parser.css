@@ -7,12 +7,22 @@
   overflow: overlay;
   width: 95%;
   padding-bottom: 20px; /* for overlay scrollbar */
+  margin-top: 5px;
   margin-left: 1.5%;
 }
 
 .parser table.url {
   font-family: 'Courier New';
   font-size: 14px;
+  border-collapse: collapse;
+}
+
+.parser table.url tr {
+  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+}
+
+.parser table.url tr:last-child {
+  border-bottom: none;
 }
 
 .parser td.heading {
@@ -25,4 +35,14 @@
   max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.parser .copy-btn {
+  padding: 1px;
+  opacity: 0.7;
+  margin-right: 5px;
+}
+
+.parser .copy-btn:hover {
+  opacity: 1;
 }

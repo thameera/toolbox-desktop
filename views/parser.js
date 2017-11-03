@@ -4,6 +4,10 @@
 
   const ID = 'PARSER-PLUGIN'
 
+  const createCopyBtn = text => {
+    return $(`<button class="copy-btn" data-clipboard-text="${text}">📝</button>`)
+  }
+
   class Parser {
     constructor(element) {
       this.el = element
@@ -35,6 +39,7 @@
     replaceResult($result) {
       this.$results.empty()
       this.$results.append($result)
+      new Clipboard('.copy-btn')
     }
 
     showUrl(urlFields) {
@@ -44,12 +49,14 @@
         if (f.heading) {
           const $td = (`<td class="heading">${f.heading}</td>`)
           $tr.append($td)
-          console.log('heading')
         } else {
-          const $td1 = (`<td class="key">${f.name}</td>`)
-          const $td2 = (`<td class="val">${f.val}</td>`)
+          const $td1 = $(`<td class="key">${f.name}</td>`)
+          const $td2 = $(`<td class="copy"></td>`)
+          $td2.append(createCopyBtn(f.val))
+          const $td3 = $(`<td class="val">${f.val}</td>`)
           $tr.append($td1)
           $tr.append($td2)
+          $tr.append($td3)
         }
         $table.append($tr)
       })
