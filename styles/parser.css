@@ -3,6 +3,13 @@
   width: 95%;
 }
 
+.parser .parser-results {
+  overflow: overlay;
+  width: 95%;
+  padding-bottom: 20px; /* for overlay scrollbar */
+  margin-left: 1.5%;
+}
+
 .parser table.url {
   font-family: 'Courier New';
   font-size: 14px;
@@ -14,6 +21,8 @@
   padding-top: 5px;
 }
 
-.parser td.val {
+.parser td.key {
+  max-width: 200px;
+  text-overflow: ellipsis;
   overflow: hidden;
 }

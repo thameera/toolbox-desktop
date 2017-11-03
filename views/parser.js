@@ -18,7 +18,7 @@
       this.$text = $('<textarea rows="6" class="tab-focus"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
 
-      this.$results = $('<div class="parser-results">res</div>')
+      this.$results = $('<div class="parser-results"></div>')
 
       this.$el.append(this.$text)
       this.$el.append(this.$results)
@@ -46,7 +46,7 @@
           $tr.append($td)
           console.log('heading')
         } else {
-          const $td1 = (`<td>${f.name}</td>`)
+          const $td1 = (`<td class="key">${f.name}</td>`)
           const $td2 = (`<td class="val">${f.val}</td>`)
           $tr.append($td1)
           $tr.append($td2)

@@ -1,7 +1,7 @@
 html,
 body {
   padding: 0;
-  margin: 30;
+  margin: 5px;
 }
 
 body {
@@ -18,14 +18,13 @@ body {
 .tab-container .panel-container { background: #fff; border: solid #666 1px; padding: 10px; -moz-border-radius: 0 4px 4px 4px; -webkit-border-radius: 0 4px 4px 4px; }
 /* END easy-tabs styles */
 
-#parser-left {
+.parser-container {
   width: 50%;
   float: left;
   display: inline;
+  text-align: center;
 }
 
-#parser-right {
-  width: 50%;
-  float: left;
-  display: inline;
+.parser-container * {
+  text-align: left;
 }
