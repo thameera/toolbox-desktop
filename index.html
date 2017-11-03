@@ -3,11 +3,41 @@
   <head>
     <meta charset="UTF-8">
     <title>DSE Toolbox</title>
+    <link rel="stylesheet" href="styles/main.css">
   </head>
+
   <body>
     <h1>Toolbox</h1>
 
+    <div class="container">
+      <div id="tab-container" class="tab-container">
+        <ul class='etabs'>
+          <li class='tab'><a href="#parser">Parser</a></li>
+          <li class='tab'><a href="#zendesk">Zendesk</a></li>
+        </ul>
+
+        <div id="parser" class="tab-content">
+          <div id="parser-left"></div>
+          <div id="parser-right"></div>
+        </div>
+
+        <div id="zendesk" class="tab-content">
+          <div id="zendesk-content"></div>
+        </div>
+      </div>
+    </div>
+
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script>
+      jQuery.browser = {};
+      jQuery.browser.msie = false;
+    </script>
+    <script src="vendor/jquery.hashchange.min.js"></script>
+    <script src="vendor/jquery.easytabs.min.js"></script>
+
+    <script src="views/parser.js"></script>
+    <script src="views/zendesk.js"></script>
     <script src="renderer.js"></script>
     <script>if (window.module) module = window.module;</script>
   </body>
