@@ -1,0 +1,19 @@
+{
+  "name": "dse-toolbox",
+  "version": "1.0.0",
+  "description": "DSE Toolbox",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/thameera/toolbox",
+  "keywords": [
+    "toolbox",
+    "dse"
+  ],
+  "author": "Thameera Senanayaka",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "~1.7.8"
+  }
+}
