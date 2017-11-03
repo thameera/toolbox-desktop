@@ -1,6 +1,7 @@
 ;(function($) {
 
   const urlParser = require('./lib/url-parser')
+  const jwtParser = require('./lib/jwt-parser')
 
   const ID = 'PARSER-PLUGIN'
 
@@ -30,9 +31,15 @@
 
     start() {
       const text = this.$text.val().trim()
+
       const urlFields = urlParser(text)
       if (urlFields) {
         return this.showUrl(urlFields)
+      }
+
+      const jwtFields = jwtParser(text)
+      if (jwtFields) {
+        return this.showJWT(jwtFields)
       }
     }
 
@@ -42,9 +49,9 @@
       new Clipboard('.copy-btn')
     }
 
-    showUrl(urlFields) {
-      const $table = $('<table class="url"></table>')
-      urlFields.forEach(f => {
+    generateTable(fields) {
+      const $table = $('<table></table>')
+      fields.forEach(f => {
         const $tr = $('<tr>')
         if (f.heading) {
           const $td = (`<td class="heading">${f.heading}</td>`)
@@ -61,6 +68,14 @@
         $table.append($tr)
       })
       this.replaceResult($table)
+    }
+
+    showUrl(urlFields) {
+      this.generateTable(urlFields)
+    }
+
+    showJWT(jwtFields) {
+      this.generateTable(jwtFields)
     }
   }
 

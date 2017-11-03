@@ -19,6 +19,7 @@
     "electron-packager": "^9.1.0"
   },
   "dependencies": {
+    "jwt-decode": "^2.2.0",
     "url-parse": "^1.2.0"
   }
 }

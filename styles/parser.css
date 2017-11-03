@@ -11,17 +11,17 @@
   margin-left: 1.5%;
 }
 
-.parser table.url {
+.parser table {
   font-family: 'Courier New';
   font-size: 14px;
   border-collapse: collapse;
 }
 
-.parser table.url tr {
+.parser table tr {
   border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 
-.parser table.url tr:last-child {
+.parser table tr:last-child {
   border-bottom: none;
 }
 
