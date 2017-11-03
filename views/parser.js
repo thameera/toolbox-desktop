@@ -7,7 +7,9 @@
   const ID = 'PARSER-PLUGIN'
 
   const createCopyBtn = text => {
-    return $(`<button class="copy-btn" data-clipboard-text="${text}">📝</button>`)
+    const $btn = $(`<button class="copy-btn">📝</button>`)
+    $btn.attr('data-clipboard-text', text)
+    return $btn
   }
 
   class Parser {
