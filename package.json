@@ -4,7 +4,8 @@
   "description": "DSE Toolbox",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-packager . --overwrite --out=dist  --platform=darwin --icon='img/toolbox.icns'"
   },
   "repository": "https://github.com/thameera/toolbox",
   "keywords": [
@@ -14,6 +15,7 @@
   "author": "Thameera Senanayaka",
   "license": "MIT",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-packager": "^9.1.0"
   }
 }
