@@ -61,7 +61,8 @@
           const $td1 = $(`<td class="key">${f.name}</td>`)
           const $td2 = $(`<td class="copy"></td>`)
           $td2.append(createCopyBtn(f.val))
-          const $td3 = $(`<td class="val">${f.val}</td>`)
+          const tooltip = f.tooltip ? `data-balloon="${f.tooltip}" data-balloon-pos="right"` : ''
+          const $td3 = $(`<td class="val"><span ${tooltip}>${f.val}</span></td>`)
           $tr.append($td1)
           $tr.append($td2)
           $tr.append($td3)
