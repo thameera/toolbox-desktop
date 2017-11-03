@@ -22,6 +22,7 @@
     setup() {
       this.$text = $('<textarea rows="6" class="tab-focus"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
+      this.$text.click(() => this.$text.select())
 
       this.$results = $('<div class="parser-results"></div>')
 
