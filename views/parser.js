@@ -2,6 +2,7 @@
 
   const urlParser = require('./lib/url-parser')
   const jwtParser = require('./lib/jwt-parser')
+  const jsonParser = require('./lib/json-parser')
 
   const ID = 'PARSER-PLUGIN'
 
@@ -42,6 +43,11 @@
       if (jwtFields) {
         return this.showJWT(jwtFields)
       }
+
+      const json = jsonParser(text)
+      if (json) {
+        return this.showJSON(json, false)
+      }
     }
 
     replaceResult($result) {
@@ -78,6 +84,21 @@
 
     showJWT(jwtFields) {
       this.generateTable(jwtFields)
+    }
+
+    showJSON(json, isCollapsed) {
+      const $pre = '<pre id="json-renderer"></pre>'
+      const btnLabel = isCollapsed ? 'Expand All' : 'Collapse All'
+      const $btn = $(`<button>${btnLabel}</button>`)
+      $btn.click(() => {
+        this.showJSON(json, !isCollapsed)
+      })
+
+      this.$results.empty()
+      this.$results.append($btn)
+      this.$results.append($pre)
+
+      $('#json-renderer').jsonViewer(json, { collapsed: isCollapsed })
     }
   }
 
