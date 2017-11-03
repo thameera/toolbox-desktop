@@ -2,3 +2,18 @@
   margin-top: 10px;
   width: 95%;
 }
+
+.parser table.url {
+  font-family: 'Courier New';
+  font-size: 14px;
+}
+
+.parser td.heading {
+  white-space: nowrap;
+  font-weight: bold;
+  padding-top: 5px;
+}
+
+.parser td.val {
+  overflow: hidden;
+}
