@@ -1,8 +1,8 @@
 ;(function($) {
 
-  const urlParser = require('./lib/url-parser')
-  const jwtParser = require('./lib/jwt-parser')
-  const jsonParser = require('./lib/json-parser')
+  const urlParser = require(__dirname + '/../lib/url-parser')
+  const jwtParser = require(__dirname + '/../lib/jwt-parser')
+  const jsonParser = require(__dirname + '/../lib/json-parser')
 
   const ID = 'PARSER-PLUGIN'
 

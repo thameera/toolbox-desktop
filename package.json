@@ -5,23 +5,33 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-packager . --overwrite --out=dist  --platform=darwin --icon='img/toolbox.icns'"
+    "dist": "build ."
   },
   "repository": "https://github.com/thameera/toolbox",
   "keywords": [
     "toolbox",
-    "dse"
+    "tools",
+    "dse",
+    "electron"
   ],
   "author": "Thameera Senanayaka",
   "license": "MIT",
   "devDependencies": {
     "electron": "~1.7.8",
-    "electron-packager": "^9.1.0"
+    "electron-builder": "^19.43.4"
   },
   "dependencies": {
     "json5": "^0.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.19.1",
     "url-parse": "^1.2.0"
+  },
+  "build": {
+    "appId": "com.thameera.dse-toolbox",
+    "productName": "DSE Toolbox",
+    "mac": {
+      "target": "zip",
+      "type": "development"
+    }
   }
 }
