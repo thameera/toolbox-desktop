@@ -50,6 +50,9 @@
       if (json) {
         return this.showJSON(json, false)
       }
+
+      // If all parsers fail, show charactr count
+      this.showCharCount(text)
     }
 
     replaceResult($result) {
@@ -101,6 +104,14 @@
       this.$results.append($pre)
 
       $('#json-renderer').jsonViewer(json, { collapsed: isCollapsed })
+    }
+
+    showCharCount(text) {
+      const charCount = text.length
+      const wordCount = text.split(/\s/).filter(w => !!w).length
+      const $pre = $(`<pre>${wordCount} words\n${charCount} characters</pre>`)
+      this.$results.empty()
+      this.$results.append($pre)
     }
   }
 
