@@ -1,11 +1,10 @@
 const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
 
+const defaultMenu = require('electron-default-menu')
 const path = require('path')
 const url = require('url')
+
+const { app, BrowserWindow, Menu, shell } = electron
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -32,6 +31,9 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  const menu = defaultMenu(app, shell)
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu))
 }
 
 // This method will be called when Electron has finished
