@@ -21,6 +21,7 @@
       this.el = element
       this.$el = $(element)
 
+      this.$settingsToggleBtn = null
       this.$settingsDiv = null
       this.$urlInput = null
       this.$tokenInput = null
@@ -38,6 +39,9 @@
     setupUI() {
       const $topDiv = $('<div class="zendesk">')
 
+      this.$settingsToggleBtn = $('<button class="zd-settings-btn">⚙️</button>')
+      $topDiv.append(this.$settingsToggleBtn)
+
       const $settingsDiv = $('<div class="settings">')
       $settingsDiv.append($('<div>Zendesk URL: </div>'))
       this.$urlInput = $('<input type="text" size="50">')
@@ -51,6 +55,7 @@
       this.$settingsTestBtn = $('<button class="zd-settings-test-btn">Test</button>')
       $settingsBtns.append(this.$settingsTestBtn)
       $settingsDiv.append($settingsBtns)
+      $settingsDiv.append($('<hr>'))
       $topDiv.append($settingsDiv)
       this.$settingsDiv = $settingsDiv
 
@@ -61,6 +66,7 @@
 
       $bkDiv.append(this.$bookmarkInput)
       $bkDiv.append(this.$bookmarkAddBtn)
+      $bkDiv.append($('<hr>'))
       $topDiv.append($bkDiv)
       $topDiv.append(this.$bookmarkList)
 
@@ -68,6 +74,8 @@
     }
 
     setupCallbacks() {
+      this.$settingsToggleBtn.click(this.toggleSettings.bind(this))
+
       this.$settingsSaveBtn.click(() => {
         const saved = zdManager.saveSettings(this.$urlInput.val().trim(), this.$tokenInput.val().trim())
         if (saved) {
@@ -95,6 +103,16 @@
           this.addBookmark()
         }
       })
+    }
+
+    toggleSettings() {
+      const $div = this.$settingsDiv
+      const display = $div.css('display')
+      if (display === 'none') {
+        $div.css('display', 'block')
+      } else {
+        $div.css('display', 'none')
+      }
     }
 
     async addBookmark() {

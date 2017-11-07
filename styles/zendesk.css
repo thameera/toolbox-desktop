@@ -2,6 +2,20 @@
   margin-top: 10px;
 }
 
+.zendesk hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.zendesk .zd-settings-btn {
+  float: right;
+  font-size: 20px;
+}
+
+.zendesk .settings {
+  display: none;
+}
+
 .zendesk .zd-add-btn {
   margin-left: 5px;
 }
