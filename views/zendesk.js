@@ -90,11 +90,18 @@
       })
 
       this.$bookmarkAddBtn.click(this.addBookmark.bind(this))
+      this.$bookmarkInput.keypress(e => {
+        if (e.keyCode === 13) {
+          this.addBookmark()
+        }
+      })
     }
 
     async addBookmark() {
       const $btn = this.$bookmarkAddBtn
-      const res = await zdManager.addBookmark(this.$bookmarkInput.val().trim())
+      const $input = this.$bookmarkInput
+      $btn.text('Adding...').prop('disabled', true)
+      const res = await zdManager.addBookmark($input.val().trim())
       if (res.result === 'added') {
         showSuccess($btn, `Added new bookmark:\n${res.id}: ${res.title}`)
       } else if (res.result === 'duplicate') {
@@ -102,6 +109,8 @@
       } else {
         showError($btn, `Failed to add bookmark:\n${res.error}`)
       }
+      $input.select()
+      $btn.text('Add').prop('disabled', false)
     }
   }
 
