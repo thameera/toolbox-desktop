@@ -24,3 +24,18 @@
   margin-top: 3px;
   margin-bottom: 10px;
 }
+
+.zendesk .zd-bk-list .zd-bk-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.zendesk .zd-bk-list button.delete {
+  margin-left: 5px;
+}
+
+.zendesk .zd-bk-list li a {
+  text-decoration: none;
+  font-family: Courier;
+}
