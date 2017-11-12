@@ -5,6 +5,9 @@
   $('#tab-container').easytabs({
     animationSpeed: 'fast'
   })
+    .bind('easytabs:after', (e, $clicked, $targetPanel) => {
+      $targetPanel.find('.tab-focus').first().select()
+    })
 
   try {
     $('#parser-left').parser()

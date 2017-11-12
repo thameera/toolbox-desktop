@@ -61,7 +61,7 @@
       this.$settingsDiv = $settingsDiv
 
       const $bkDiv = $('<div>Add new bookmark: </div>')
-      this.$bookmarkInput = $('<input type="number">')
+      this.$bookmarkInput = $('<input type="number" class="tab-focus">')
       this.$bookmarkAddBtn = $('<button class="zd-add-btn">Add</button>')
       this.$bookmarkList = $('<div>')
       this.$bookmarkList.zendeskBookmarkList()
