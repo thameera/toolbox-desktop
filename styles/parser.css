@@ -46,3 +46,7 @@
 .parser .copy-btn:hover {
   opacity: 1;
 }
+
+.parser .dotted {
+  border-bottom: #ccc dotted;
+}

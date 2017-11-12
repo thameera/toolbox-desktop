@@ -23,7 +23,7 @@
     }
 
     setup() {
-      this.$text = $('<textarea rows="6" class="tab-focus"></textarea>')
+      this.$text = $('<textarea rows="6" class="tab-focus" placeholder="Paste a URL, JWT or JSON"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
 
@@ -72,7 +72,7 @@
           const $td1 = $(`<td class="key">${f.name}</td>`)
           const $td2 = $(`<td class="copy"></td>`)
           $td2.append(createCopyBtn(f.val))
-          const tooltip = f.tooltip ? `data-balloon="${f.tooltip}" data-balloon-pos="right"` : ''
+          const tooltip = f.tooltip ? `class="dotted" data-balloon="${f.tooltip}" data-balloon-pos="right"` : ''
           const $td3 = $(`<td class="val"><span ${tooltip}>${f.val}</span></td>`)
           $tr.append($td1)
           $tr.append($td2)
@@ -108,6 +108,9 @@
 
     showCharCount(text) {
       const charCount = text.length
+      if (charCount === 0) {
+        return this.$results.empty()
+      }
       const wordCount = text.split(/\s/).filter(w => !!w).length
       const $pre = $(`<pre>${wordCount} words\n${charCount} characters</pre>`)
       this.$results.empty()
