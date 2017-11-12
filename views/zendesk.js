@@ -1,5 +1,6 @@
 ;(function($) {
 
+  require('./zendesk-bookmark-list.js')
   const zdManager = require(__dirname + '/../lib/zd-manager')
 
   const ID = 'ZENDESK-PLUGIN'
@@ -63,6 +64,7 @@
       this.$bookmarkInput = $('<input type="number">')
       this.$bookmarkAddBtn = $('<button class="zd-add-btn">Add</button>')
       this.$bookmarkList = $('<div>')
+      this.$bookmarkList.zendeskBookmarkList()
 
       $bkDiv.append(this.$bookmarkInput)
       $bkDiv.append(this.$bookmarkAddBtn)
