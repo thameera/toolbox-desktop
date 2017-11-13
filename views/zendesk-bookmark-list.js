@@ -1,25 +1,9 @@
 ;(function($) {
 
   const zdManager = require(__dirname + '/../lib/zd-manager')
+  const u = require(__dirname + '/../lib/utils')
 
   const ID = 'ZENDESK-BOOKMARK-LIST-PLUGIN'
-
-  const showSuccess = ($el, msg) => {
-    $el.notify(msg, { className: 'success', autoHide: true, autoHideDelay: 2000 })
-  }
-
-  const showWarning = ($el, msg) => {
-    $el.notify(msg, { className: 'warning', autoHide: true, autoHideDelay: 2000 })
-  }
-
-  const showError = ($el, msg) => {
-    $el.notify(msg, { className: 'error', autoHide: true, autoHideDelay: 2000 })
-  }
-
-  const truncate = (msg, len) => {
-    if (msg.length <= len-3) return msg
-    return `${msg.substr(0, len-3)}...`
-  }
 
   class BookmarkList {
     constructor(element) {
@@ -56,7 +40,7 @@
         if (res.result === 'ok') {
           this.drawBookmarks(res.bookmarks)
         } else {
-          showError($btn, `Failed to fetch bookmarks:\n${res.error}`)
+          u.showError($btn, `Failed to fetch bookmarks:\n${res.error}`)
         }
       })
     }
@@ -67,7 +51,7 @@
       bookmarks.forEach(b => {
         const id = b.ticket.id
         const $li = $('<li>')
-        const $href = $(`<a href='#'>${id} - ${truncate(b.ticket.subject, 60)}</a>`)
+        const $href = $(`<a href='#'>${id} - ${u.truncate(b.ticket.subject, 60)}</a>`)
         const $delete = $('<button class="delete">❌</button>')
         $href.click(e => {
           e.preventDefault()
@@ -79,7 +63,7 @@
           if (res.result === 'ok' && res.id === b.id) {
             $href.css('text-decoration', 'line-through')
           } else {
-            showError($delete, `Failed to delete bookmark:\n${res.error}`)
+            u.showError($delete, `Failed to delete bookmark:\n${res.error}`)
             $delete.prop('disabled', false)
           }
         })
