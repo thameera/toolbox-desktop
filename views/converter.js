@@ -95,6 +95,10 @@
             <div>
               <button id="ip">Get my IP</button>
             </div>
+            <div>
+              <button id="coin-toss">Coin Toss</button>
+              <button id="dice-roll">Dice Roll</button>
+            </div>
           </div>
         </div>
       `)
@@ -157,6 +161,8 @@
 
       bind('generate-uuid', c.uuid)
       bind('ip', c.ip)
+      bind('coin-toss', c.coinToss)
+      bind('dice-roll', c.diceRoll)
     }
 
     updateResultUI() {
