@@ -49,9 +49,27 @@
             </div>
           </div>
           <div class="converter-right">
+            <div class="label">Web Encodings</div>
             <div>
               <button id="base64-encode">Base64 Encode</button>
               <button id="base64-decode">Base64 Decode</button>
+            </div>
+            <div>
+              <button id="url-encode">URL Encode</button>
+              <button id="url-decode">URL Decode</button>
+            </div>
+            <div>
+              <button id="html-encode">HTML Encode</button>
+              <button id="html-decode">HTML Decode</button>
+            </div>
+            <div class="label">Text Processing</div>
+            <div>
+              <button id="to-upper">To Uppercase</button>
+              <button id="to-lower">To Lowercase</button>
+            </div>
+            <div class="label">Misc</div>
+            <div>
+              <button id="generate-uuid">Generate UUID</button>
             </div>
           </div>
         </div>
@@ -76,6 +94,15 @@
 
       bind('base64-encode', c.base64Encode)
       bind('base64-decode', c.base64Decode)
+      bind('url-encode', c.urlEncode)
+      bind('url-decode', c.urlDecode)
+      bind('html-encode', c.htmlEncode)
+      bind('html-decode', c.htmlDecode)
+
+      bind('to-upper', c.toUpper)
+      bind('to-lower', c.toLower)
+
+      bind('generate-uuid', c.uuid)
     }
 
     updateResultUI() {
