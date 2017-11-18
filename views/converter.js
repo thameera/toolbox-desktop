@@ -1,6 +1,7 @@
 ;(function($) {
 
   const c = require(__dirname + '/../lib/convert-utils')
+  const u = require(__dirname + '/../lib/utils')
 
   const ID = 'CONVERTER-PLUGIN'
 
@@ -9,6 +10,8 @@
       this.el = element
       this.$el = $(element)
       this.$topDiv = null
+
+      this.results = new u.RingBuffer(4)
 
       this.setupUI()
       this.setupCallbacks()
@@ -22,10 +25,27 @@
             <textarea rows="6" class="tab-focus input" placeholder="Paste anything"></textarea>
             <div class="converter-results">
               <div class="label">Output</div>
-              <div>
-                <textarea rows="6" class="output" disabled></textarea>
-                <button class="copy-btn">Copy</button>
-              </div>
+              <table>
+                <tr class="result">
+                  <td class="td-left"><textarea rows="4" class="output" disabled></textarea></td>
+                  <td class="td-right"><button class="copy-btn">📝 Copy</button></td>
+                </tr>
+                <tr>
+                  <td><div class="label">Previous results</div></td>
+                </tr>
+                <tr class="result">
+                  <td class="td-left"><textarea rows="2" class="output" disabled></textarea></td>
+                  <td class="td-right"><button class="copy-btn">📝 Copy</button></td>
+                </tr>
+                <tr class="result">
+                  <td class="td-left"><textarea rows="2" class="output" disabled></textarea></td>
+                  <td class="td-right"><button class="copy-btn">📝 Copy</button></td>
+                </tr>
+                <tr class="result">
+                  <td class="td-left"><textarea rows="2" class="output" disabled></textarea></td>
+                  <td class="td-right"><button class="copy-btn">📝 Copy</button></td>
+                </tr>
+              </table>
             </div>
           </div>
           <div class="converter-right">
@@ -43,22 +63,32 @@
     setupCallbacks() {
       const $d = this.$topDiv
       const $input = $d.find('textarea')
-      const $results = $d.find('.converter-results textarea.output')
-      const $copyBtn = $d.find('.copy-btn')
 
       $input.click(() => $input.select())
 
       const bind = (id, fn) => {
         $d.find(`#${id}`).click(() => {
           const res = fn($input.val())
-          $results.val(res)
-          $copyBtn.attr('data-clipboard-text', res)
-          new Clipboard('.copy-btn')
+          this.results.push(res)
+          this.updateResultUI()
         })
       }
 
       bind('base64-encode', c.base64Encode)
       bind('base64-decode', c.base64Decode)
+    }
+
+    updateResultUI() {
+      const $d = this.$topDiv
+      const $results = $d.find('.converter-results textarea.output')
+      const $copyBtn = $d.find('.copy-btn')
+
+      $d.find('.converter-results table tr.result').each((i, row) => {
+        const result = this.results.peek(i)
+        $(row).find('textarea').val(result)
+        $(row).find('button').attr('data-clipboard-text', result)
+      })
+      new Clipboard('.copy-btn')
     }
   }
 
