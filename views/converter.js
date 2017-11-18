@@ -68,6 +68,10 @@
               <button id="to-lower">To Lowercase</button>
             </div>
             <div>
+              <button id="trim">Trim</button>
+              <button id="reverse">Reverse</button>
+            </div>
+            <div>
               <input type="text" id="replace-src" placeholder="replace" size="10"/>
               <input type="text" id="replace-dest" placeholder="with" size="10"/>
               <button id="replace">Replace</button>
@@ -141,6 +145,8 @@
 
       bind('to-upper', c.toUpper)
       bind('to-lower', c.toLower)
+      bind('trim', c.trim)
+      bind('reverse', c.reverse)
       bind('replace', c.replace, 'replace-src', 'replace-dest')
 
       bind('convert-unix-ms', c.convertFromMs)
