@@ -34,7 +34,7 @@
 
       const $settingsDiv = $('<div class="settings">')
       $settingsDiv.append($('<div>Zendesk URL: </div>'))
-      this.$urlInput = $('<input type="text" size="50">')
+      this.$urlInput = $('<input type="text" size="50" placeholder="eg: https://mycompany.zendesk.com">')
       $settingsDiv.append(this.$urlInput)
       $settingsDiv.append($('<div> Token: </div>'))
       this.$tokenInput = $('<input type="text" size="50">')
