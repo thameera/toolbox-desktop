@@ -94,6 +94,7 @@
           this.addBookmark()
         }
       })
+      this.$bookmarkInput.click(() => this.$bookmarkInput.select())
     }
 
     toggleSettings() {
