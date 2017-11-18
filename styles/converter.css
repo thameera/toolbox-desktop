@@ -1,0 +1,30 @@
+.converter .converter-top {
+  margin-top: 10px;
+}
+
+.converter .label {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Courier';
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+.converter .converter-left {
+  width: 48%;
+  float: left;
+  margin-left: 1%;
+}
+
+.converter textarea {
+  width: 100%;
+}
+
+.converter .converter-results {
+  font-family: 'Courier';
+}
+
+.converter .converter-right {
+  float: right;
+  width: 48%;
+}

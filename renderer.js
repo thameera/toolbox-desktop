@@ -1,6 +1,7 @@
 ;(function() {
   require('./views/parser.js')
   require('./views/zendesk.js')
+  require('./views/converter.js')
 
   $('#tab-container').easytabs({
     animationSpeed: 'fast'
@@ -14,6 +15,8 @@
     $('#parser-right').parser()
 
     $('#zendesk-content').zendesk()
+
+    $('#converter-content').converter()
   } catch(e) {
     // Packaging errors will cause this line to be reached
     alert(e)
