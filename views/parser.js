@@ -92,7 +92,7 @@
     }
 
     showJSON(json, isCollapsed) {
-      const $pre = '<pre id="json-renderer"></pre>'
+      const $pre = $('<pre id="json-renderer"></pre>')
       const btnLabel = isCollapsed ? 'Expand All' : 'Collapse All'
       const $btn = $(`<button>${btnLabel}</button>`)
       $btn.click(() => {
@@ -103,7 +103,7 @@
       this.$results.append($btn)
       this.$results.append($pre)
 
-      $('#json-renderer').jsonViewer(json, { collapsed: isCollapsed })
+      $pre.jsonViewer(json, { collapsed: isCollapsed })
     }
 
     showCharCount(text) {
