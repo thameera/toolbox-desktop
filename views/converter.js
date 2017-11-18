@@ -67,6 +67,11 @@
               <button id="to-upper">To Uppercase</button>
               <button id="to-lower">To Lowercase</button>
             </div>
+            <div>
+              <input type="text" id="replace-src" placeholder="replace" size="10"/>
+              <input type="text" id="replace-dest" placeholder="with" size="10"/>
+              <button id="replace">Replace</button>
+            </div>
             <div class="label">Misc</div>
             <div>
               <button id="generate-uuid">Generate UUID</button>
@@ -82,11 +87,18 @@
       const $d = this.$topDiv
       const $input = $d.find('textarea')
 
-      $input.click(() => $input.select())
+      $d.find('input,textarea').click(function() {
+        $(this).select()
+      })
 
-      const bind = (id, fn) => {
+      const bind = (id, fn, ...args) => {
         $d.find(`#${id}`).click(() => {
-          const res = fn($input.val())
+          // If there are any 'args', add them as well
+          const argArray = args.reduce((curr, arg) => {
+            return curr.concat([$(`#${arg}`).val()])
+          }, [$input.val()])
+
+          const res = fn.apply(null, argArray)
           this.results.push(res)
           this.updateResultUI()
         })
@@ -101,6 +113,7 @@
 
       bind('to-upper', c.toUpper)
       bind('to-lower', c.toLower)
+      bind('replace', c.replace, 'replace-src', 'replace-dest')
 
       bind('generate-uuid', c.uuid)
     }
