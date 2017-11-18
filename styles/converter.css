@@ -36,13 +36,18 @@
   text-align: center;
 }
 
-.converter .copy-btn {
+.converter button {
   padding: 1px;
   opacity: 0.7;
 }
 
-.converter .copy-btn:hover {
+.converter button:hover {
   opacity: 1;
+}
+
+.converter .moveup-btn {
+  font-size: 18px;
+  margin-bottom: 1px;
 }
 
 .converter .converter-right {

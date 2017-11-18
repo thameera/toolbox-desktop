@@ -24,7 +24,7 @@
             <div class="label">Input</div>
             <textarea rows="6" class="tab-focus input" placeholder="Paste anything"></textarea>
             <div class="converter-results">
-              <div class="label">Output</div>
+              <div class="label">Output <button class="moveup-btn">↖️</button></div>
               <table>
                 <tr class="result">
                   <td class="td-left"><textarea rows="4" class="output" disabled></textarea></td>
@@ -85,10 +85,14 @@
 
     setupCallbacks() {
       const $d = this.$topDiv
-      const $input = $d.find('textarea')
+      const $input = $d.find('textarea.input')
 
       $d.find('input,textarea').click(function() {
         $(this).select()
+      })
+
+      $d.find('.moveup-btn').click(() => {
+        $input.val(this.results.top())
       })
 
       const bind = (id, fn, ...args) => {
