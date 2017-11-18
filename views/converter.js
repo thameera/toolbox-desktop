@@ -88,6 +88,9 @@
             <div>
               <button id="generate-uuid">Generate UUID</button>
             </div>
+            <div>
+              <button id="ip">Get my IP</button>
+            </div>
           </div>
         </div>
       `)
@@ -115,6 +118,15 @@
           }, [$input.val()])
 
           const res = fn.apply(null, argArray)
+
+          if (res instanceof Promise) {
+            $d.find('textarea.output').first().val('please wait...')
+            return res.then(resp => {
+              this.results.push(resp)
+              this.updateResultUI()
+            })
+          }
+
           this.results.push(res)
           this.updateResultUI()
         })
@@ -138,6 +150,7 @@
       bind('cur-time-unix', c.curTimeUnix)
 
       bind('generate-uuid', c.uuid)
+      bind('ip', c.ip)
     }
 
     updateResultUI() {
