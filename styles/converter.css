@@ -10,6 +10,11 @@
   margin-bottom: 2px;
 }
 
+.converter .mini-label {
+  font-size: 10px;
+  font-family: 'Courier';
+}
+
 .converter .converter-left {
   width: 48%;
   float: left;

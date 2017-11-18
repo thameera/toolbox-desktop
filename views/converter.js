@@ -72,6 +72,18 @@
               <input type="text" id="replace-dest" placeholder="with" size="10"/>
               <button id="replace">Replace</button>
             </div>
+            <div class="label">Time</div>
+            <div>
+              <span class="mini-label">Convert from</span>
+              <button id="convert-unix-ms">Unix ms</button>
+              <button id="convert-unix">Unix sec</button>
+            </div>
+            <div>
+              <span class="mini-label">Current time</span>
+              <button id="cur-time-formatted">Formatted</button>
+              <button id="cur-time-unix-ms">Unix ms</button>
+              <button id="cur-time-unix">Unix sec</button>
+            </div>
             <div class="label">Misc</div>
             <div>
               <button id="generate-uuid">Generate UUID</button>
@@ -118,6 +130,12 @@
       bind('to-upper', c.toUpper)
       bind('to-lower', c.toLower)
       bind('replace', c.replace, 'replace-src', 'replace-dest')
+
+      bind('convert-unix-ms', c.convertFromMs)
+      bind('convert-unix', c.convertFromUnix)
+      bind('cur-time-formatted', c.curTimeFormatted)
+      bind('cur-time-unix-ms', c.curTimeUnixMilli)
+      bind('cur-time-unix', c.curTimeUnix)
 
       bind('generate-uuid', c.uuid)
     }
