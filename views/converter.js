@@ -76,6 +76,12 @@
               <input type="text" id="replace-dest" placeholder="with" size="10"/>
               <button id="replace">Replace</button>
             </div>
+            <div>
+              <span class="mini-label">Count Occurrences</span>
+              <input type="text" id="occurrences-text" placeholder="phrase" size="10"/>
+              <button id="occurrences">Case-sensitive</button>
+              <button id="occurrencesi">Case-insensitive</button>
+            </div>
             <div class="label">Time</div>
             <div>
               <span class="mini-label">Convert from</span>
@@ -93,7 +99,7 @@
               <button id="generate-uuid">Generate UUID</button>
             </div>
             <div>
-              <button id="ip">Get my IP</button>
+              <button id="ip">Get My IP</button>
             </div>
             <div>
               <button id="coin-toss">Coin Toss</button>
@@ -152,6 +158,8 @@
       bind('trim', c.trim)
       bind('reverse', c.reverse)
       bind('replace', c.replace, 'replace-src', 'replace-dest')
+      bind('occurrences', c.countOccurrences, 'occurrences-text')
+      bind('occurrencesi', c.countOccurrencesI, 'occurrences-text')
 
       bind('convert-unix-ms', c.convertFromMs)
       bind('convert-unix', c.convertFromUnix)
