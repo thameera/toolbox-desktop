@@ -4,6 +4,7 @@
   const jwtParser = require(__dirname + '/../lib/parsers/jwt-parser')
   const samlParser = require(__dirname + '/../lib/parsers/saml-parser')
   const jsonParser = require(__dirname + '/../lib/parsers/json-parser')
+  const xmlParser = require(__dirname + '/../lib/parsers/xml-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
 
   const ID = 'PARSER-PLUGIN'
@@ -35,7 +36,7 @@
       this.$el.append(this.$results)
     }
 
-    start() {
+    async start() {
       const text = this.$text.val().trim()
 
       const urlFields = urlParser(text)
@@ -57,8 +58,13 @@
 
       const json = jsonParser(text)
       if (json) {
-        return this.showJSON(json, false)
+        return this.showJSON(json)
       }
+
+      try {
+        const res = await xmlParser(text)
+        return this.showXML(res, true)
+      } catch (e) {}
 
       // UA parsing should be done at the end
       // since it recognizes any text with a UA string inside as a UA
@@ -99,6 +105,37 @@
       this.replaceResult($table)
     }
 
+    generateCodemirror($container, code, height) {
+      const $textarea = $(`<textarea>${code}</textarea>`)
+      // Invoke codemirror after drawing to UI
+      setTimeout(() => {
+        const cm = CodeMirror.fromTextArea($textarea[0], {
+          mode: 'xml',
+          lineNumbers: true,
+          foldGutter: true,
+          gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        })
+        if (height) {
+          cm.setSize(null, height)
+        }
+      }, 0)
+      $container.append($textarea)
+    }
+
+    generateJSONViewer($container, json, isCollapsed) {
+      const $pre = $('<pre id="json-renderer"></pre>')
+      const btnLabel = isCollapsed ? 'Expand All' : 'Collapse All'
+      const $btn = $(`<button>${btnLabel}</button>`)
+      $btn.click(() => {
+        this.generateJSONViewer($container, json, !isCollapsed)
+      })
+
+      $pre.jsonViewer(json, { collapsed: isCollapsed })
+      $container.empty()
+      $container.append($btn)
+      $container.append($pre)
+    }
+
     showUrl(urlFields) {
       this.generateTable(urlFields)
     }
@@ -111,19 +148,36 @@
       this.generateTable(uaFields)
     }
 
-    showJSON(json, isCollapsed) {
-      const $pre = $('<pre id="json-renderer"></pre>')
-      const btnLabel = isCollapsed ? 'Expand All' : 'Collapse All'
-      const $btn = $(`<button>${btnLabel}</button>`)
-      $btn.click(() => {
-        this.showJSON(json, !isCollapsed)
+    showJSON(json) {
+      const $topDiv = $('<div>')
+      this.generateJSONViewer($topDiv, json, false)
+      this.replaceResult($topDiv)
+    }
+
+    showXML(xmlRes, isXML) {
+      const $topDiv = $('<div>')
+
+      const content = isXML ? xmlRes.xml : JSON.stringify(xmlRes.json)
+      const title = isXML ? 'Prettified XML' : 'JSON Representation'
+      const btnLabel = isXML ? 'Show JSON' : 'Show XML'
+
+      const $heading1 = $(`<div class="heading">${title}</div>`)
+      $heading1.append(createCopyBtn(content))
+      const $btn = $(`<button class="xml-btn">${btnLabel}</button>`).click(() => {
+        this.showXML(xmlRes, !isXML)
       })
+      $heading1.append($btn)
+      $topDiv.append($heading1)
 
-      this.$results.empty()
-      this.$results.append($btn)
-      this.$results.append($pre)
+      const $container = $('<div>')
+      if (isXML) {
+        this.generateCodemirror($container, xmlRes.xml)
+      } else {
+        this.generateJSONViewer($container, xmlRes.json, false)
+      }
+      $topDiv.append($container)
 
-      $pre.jsonViewer(json, { collapsed: isCollapsed })
+      this.replaceResult($topDiv)
     }
 
     showSAML(samlFields) {
@@ -133,18 +187,9 @@
       $heading1.append(createCopyBtn(samlFields.xml))
       $topDiv.append($heading1)
 
-      const $textarea = $(`<textarea rows="10">${samlFields.xml}</textarea>`)
-      $topDiv.append($textarea)
-      // Invoke codemirror after drawing to UI
-      setTimeout(() => {
-        const cm = CodeMirror.fromTextArea($textarea[0], {
-          mode: 'xml',
-          lineNumbers: true,
-          foldGutter: true,
-          gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-        })
-        cm.setSize(null, 200)
-      }, 0)
+      const $cm = $('<div>')
+      this.generateCodemirror($cm, samlFields.xml, 200)
+      $topDiv.append($cm)
 
       const $heading2 = $('<div class="heading">Decoded Profile:</div>')
       $heading2.append(createCopyBtn(JSON.stringify(samlFields.profile)))
