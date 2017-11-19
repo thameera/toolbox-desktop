@@ -82,6 +82,9 @@
               <button id="occurrences">Case-sensitive</button>
               <button id="occurrencesi">Case-insensitive</button>
             </div>
+            <div>
+              <button id="word-count">Word Count</button>
+            </div>
             <div class="label">Time</div>
             <div>
               <span class="mini-label">Convert from</span>
@@ -160,6 +163,7 @@
       bind('replace', c.replace, 'replace-src', 'replace-dest')
       bind('occurrences', c.countOccurrences, 'occurrences-text')
       bind('occurrencesi', c.countOccurrencesI, 'occurrences-text')
+      bind('word-count', c.wordCount)
 
       bind('convert-unix-ms', c.convertFromMs)
       bind('convert-unix', c.convertFromUnix)
