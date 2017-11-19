@@ -127,23 +127,34 @@
     }
 
     showSAML(samlFields) {
-      this.$results.append($('<div class="heading">XML:</div>'))
+      const $topDiv = $('<div>')
 
-      const $textarea = $(`<textarea id="saml-code" class="xml" rows="10">${samlFields.xml}</textarea>`)
-      this.$results.append($textarea)
-      const cm = CodeMirror.fromTextArea($textarea[0], {
-        mode: 'xml',
-        lineNumbers: true,
-        foldGutter: true,
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-      })
-      cm.setSize(null, 200)
+      const $heading1 = $('<div class="heading">XML:</div>')
+      $heading1.append(createCopyBtn(samlFields.xml))
+      $topDiv.append($heading1)
 
-      this.$results.append($('<div class="heading">Decoded Profile:</div>'))
+      const $textarea = $(`<textarea rows="10">${samlFields.xml}</textarea>`)
+      $topDiv.append($textarea)
+      // Invoke codemirror after drawing to UI
+      setTimeout(() => {
+        const cm = CodeMirror.fromTextArea($textarea[0], {
+          mode: 'xml',
+          lineNumbers: true,
+          foldGutter: true,
+          gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+        })
+        cm.setSize(null, 200)
+      }, 0)
+
+      const $heading2 = $('<div class="heading">Decoded Profile:</div>')
+      $heading2.append(createCopyBtn(JSON.stringify(samlFields.profile)))
+      $topDiv.append($heading2)
 
       const $pre = $('<pre id="json-renderer"></pre>')
       $pre.jsonViewer(samlFields.profile, { withQuotes: true })
-      this.$results.append($pre)
+      $topDiv.append($pre)
+
+      this.replaceResult($topDiv)
     }
 
     showCharCount(text) {
