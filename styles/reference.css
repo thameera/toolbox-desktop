@@ -1,0 +1,33 @@
+.reference .reference-top {
+  margin: 10px;
+}
+
+.reference .list {
+  float: left;
+  display: inline;
+  margin-right: 20px;
+}
+
+.reference select {
+  width: 150px;
+  overflow: hidden;
+}
+
+.reference option {
+  font-size: 14px;
+  padding: 5px 5px 10px 5px;
+}
+
+.reference .results {
+  display: inline;
+}
+
+.reference .results table {
+  border-collapse: collapse;
+  text-align: center
+}
+
+.reference table.ascii td,
+.reference table.ascii th {
+  padding: 6px;
+}
