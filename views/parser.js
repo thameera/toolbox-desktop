@@ -52,6 +52,8 @@
         return this.showJSON(json, false)
       }
 
+      // UA parsing should be done at the end
+      // since it recognizes any text with a UA string inside as a UA
       const ua = uaParser(text)
       if (ua) {
         return this.showUA(ua)
