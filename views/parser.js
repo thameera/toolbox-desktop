@@ -49,12 +49,10 @@
         return this.showJWT(jwtFields)
       }
 
-      const promise = samlParser(text)
-      if (promise) {
-        return promise
-          .then(samlFields => this.showSAML(samlFields))
-          .catch(() => this.showCharCount(text))
-      }
+      try {
+        const res = await samlParser(text)
+        return this.showSAML(res)
+      } catch (e) {}
 
       const json = jsonParser(text)
       if (json) {
@@ -122,15 +120,16 @@
       $container.append($textarea)
     }
 
-    generateJSONViewer($container, json, isCollapsed) {
+    generateJSONViewer($container, json, opts) {
       const $pre = $('<pre id="json-renderer"></pre>')
-      const btnLabel = isCollapsed ? 'Expand All' : 'Collapse All'
+      const btnLabel = opts.isCollapsed ? 'Expand All' : 'Collapse All'
       const $btn = $(`<button>${btnLabel}</button>`)
       $btn.click(() => {
-        this.generateJSONViewer($container, json, !isCollapsed)
+        opts.isCollapsed = !opts.isCollapsed
+        this.generateJSONViewer($container, json, opts)
       })
 
-      $pre.jsonViewer(json, { collapsed: isCollapsed })
+      $pre.jsonViewer(json, { collapsed: opts.isCollapsed, withQuotes: opts.withQuotes })
       $container.empty()
       $container.append($btn)
       $container.append($pre)
@@ -150,7 +149,7 @@
 
     showJSON(json) {
       const $topDiv = $('<div>')
-      this.generateJSONViewer($topDiv, json, false)
+      this.generateJSONViewer($topDiv, json, { isCollapsed: false })
       this.replaceResult($topDiv)
     }
 
@@ -173,7 +172,7 @@
       if (isXML) {
         this.generateCodemirror($container, xmlRes.xml)
       } else {
-        this.generateJSONViewer($container, xmlRes.json, false)
+        this.generateJSONViewer($container, xmlRes.json, { isCollapsed: false })
       }
       $topDiv.append($container)
 
@@ -195,9 +194,9 @@
       $heading2.append(createCopyBtn(JSON.stringify(samlFields.profile)))
       $topDiv.append($heading2)
 
-      const $pre = $('<pre id="json-renderer"></pre>')
-      $pre.jsonViewer(samlFields.profile, { withQuotes: true })
-      $topDiv.append($pre)
+      const $json = $('<div>')
+      this.generateJSONViewer($json, samlFields.profile, { withQuotes: true })
+      $topDiv.append($json)
 
       this.replaceResult($topDiv)
     }
