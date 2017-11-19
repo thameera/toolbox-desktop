@@ -3,6 +3,7 @@
   const urlParser = require(__dirname + '/../lib/url-parser')
   const jwtParser = require(__dirname + '/../lib/jwt-parser')
   const jsonParser = require(__dirname + '/../lib/json-parser')
+  const uaParser = require(__dirname + '/../lib/ua-parser')
 
   const ID = 'PARSER-PLUGIN'
 
@@ -23,7 +24,7 @@
     }
 
     setup() {
-      this.$text = $('<textarea rows="6" class="tab-focus" placeholder="Paste a URL, JWT or JSON"></textarea>')
+      this.$text = $('<textarea rows="6" class="tab-focus" placeholder="Paste a URL, JWT, JSON or UserAgent string"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
 
@@ -49,6 +50,11 @@
       const json = jsonParser(text)
       if (json) {
         return this.showJSON(json, false)
+      }
+
+      const ua = uaParser(text)
+      if (ua) {
+        return this.showUA(ua)
       }
 
       // If all parsers fail, show charactr count
@@ -89,6 +95,10 @@
 
     showJWT(jwtFields) {
       this.generateTable(jwtFields)
+    }
+
+    showUA(uaFields) {
+      this.generateTable(uaFields)
     }
 
     showJSON(json, isCollapsed) {

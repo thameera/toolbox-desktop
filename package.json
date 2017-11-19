@@ -29,6 +29,7 @@
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
     "url-parse": "^1.2.0",
+    "useragent": "^2.2.1",
     "uuid": "^3.1.0"
   },
   "build": {
