@@ -39,6 +39,8 @@
     async start() {
       const text = this.$text.val().trim()
 
+      if (!text) return this.$results.empty()
+
       const urlFields = urlParser(text)
       if (urlFields) {
         return this.showUrl(urlFields)
@@ -203,9 +205,6 @@
 
     showCharCount(text) {
       const charCount = text.length
-      if (charCount === 0) {
-        return this.$results.empty()
-      }
       const wordCount = text.split(/\s/).filter(w => !!w).length
       const $pre = $(`<pre>${wordCount} words\n${charCount} characters</pre>`)
       this.$results.empty()
