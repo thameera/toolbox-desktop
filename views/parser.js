@@ -2,6 +2,7 @@
 
   const urlParser = require(__dirname + '/../lib/parsers/url-parser')
   const jwtParser = require(__dirname + '/../lib/parsers/jwt-parser')
+  const samlParser = require(__dirname + '/../lib/parsers/saml-parser')
   const jsonParser = require(__dirname + '/../lib/parsers/json-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
 
@@ -24,7 +25,7 @@
     }
 
     setup() {
-      this.$text = $('<textarea rows="6" class="tab-focus" placeholder="Paste a URL, JWT, JSON or UserAgent string"></textarea>')
+      this.$text = $('<textarea rows="6" class="tab-focus input" placeholder="Paste a URL, JWT, SAML token, JSON or UserAgent string"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
 
@@ -45,6 +46,13 @@
       const jwtFields = jwtParser(text)
       if (jwtFields) {
         return this.showJWT(jwtFields)
+      }
+
+      const promise = samlParser(text)
+      if (promise) {
+        return promise
+          .then(samlFields => this.showSAML(samlFields))
+          .catch(() => this.showCharCount(text))
       }
 
       const json = jsonParser(text)
@@ -116,6 +124,19 @@
       this.$results.append($pre)
 
       $pre.jsonViewer(json, { collapsed: isCollapsed })
+    }
+
+    showSAML(samlFields) {
+      this.$results.append($('<div class="heading">Decoded XML</div>'))
+
+      const $textarea = $(`<textarea class="xml" rows="10">${samlFields.xml}</textarea>`)
+      this.$results.append($textarea)
+
+      this.$results.append($('<div class="heading">Profile</div>'))
+
+      const $pre = $('<pre id="json-renderer"></pre>')
+      $pre.jsonViewer(samlFields.profile, { withQuotes: true })
+      this.$results.append($pre)
     }
 
     showCharCount(text) {

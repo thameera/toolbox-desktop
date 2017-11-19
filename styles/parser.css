@@ -1,4 +1,4 @@
-.parser textarea {
+.parser textarea.input {
   margin-top: 10px;
   width: 95%;
 }
@@ -49,4 +49,12 @@
 
 .parser .dotted {
   border-bottom: #ccc dotted;
+}
+
+.parser textarea.xml {
+  width: 100%;
+}
+
+.parser div.heading {
+  font-family: 'Courier';
 }
