@@ -127,12 +127,19 @@
     }
 
     showSAML(samlFields) {
-      this.$results.append($('<div class="heading">Decoded XML</div>'))
+      this.$results.append($('<div class="heading">XML:</div>'))
 
-      const $textarea = $(`<textarea class="xml" rows="10">${samlFields.xml}</textarea>`)
+      const $textarea = $(`<textarea id="saml-code" class="xml" rows="10">${samlFields.xml}</textarea>`)
       this.$results.append($textarea)
+      const cm = CodeMirror.fromTextArea($textarea[0], {
+        mode: 'xml',
+        lineNumbers: true,
+        foldGutter: true,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+      })
+      cm.setSize(null, 200)
 
-      this.$results.append($('<div class="heading">Profile</div>'))
+      this.$results.append($('<div class="heading">Decoded Profile:</div>'))
 
       const $pre = $('<pre id="json-renderer"></pre>')
       $pre.jsonViewer(samlFields.profile, { withQuotes: true })
