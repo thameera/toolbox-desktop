@@ -1,0 +1,12 @@
+.diff .diffviewer-top {
+  margin: 10px;
+}
+
+.diff table.inputs {
+  width: 100%;
+}
+
+.diff table.inputs textarea {
+  width: 98%;
+  height: 100px;
+}

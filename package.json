@@ -25,6 +25,7 @@
     "electron-default-menu": "^1.0.1",
     "he": "^1.1.1",
     "json5": "^0.5.1",
+    "jsondiffpatch": "^0.2.5",
     "jwt-decode": "^2.2.0",
     "moment": "^2.19.1",
     "request": "^2.83.0",

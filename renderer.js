@@ -2,6 +2,7 @@
   require('./views/parser.js')
   require('./views/zendesk.js')
   require('./views/converter.js')
+  require('./views/diff.js')
   require('./views/reference.js')
 
   $('#tab-container').easytabs({
@@ -18,6 +19,8 @@
     $('#zendesk-content').zendesk()
 
     $('#converter-content').converter()
+
+    $('#diff-content').diffviewer()
 
     $('#reference-content').reference()
   } catch(e) {

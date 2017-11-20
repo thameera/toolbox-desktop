@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="vendor/jquery.json-viewer.css">
     <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="node_modules/codemirror/addon/fold/foldgutter.css">
+    <link rel="stylesheet" href="node_modules/jsondiffpatch/public/formatters-styles/html.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/parser.css">
     <link rel="stylesheet" href="styles/zendesk.css">
     <link rel="stylesheet" href="styles/reference.css">
     <link rel="stylesheet" href="styles/converter.css">
+    <link rel="stylesheet" href="styles/diff.css">
   </head>
 
   <body>
@@ -21,6 +23,7 @@
           <li class='tab'><a href="#parser">Parser</a></li>
           <li class='tab'><a href="#converter">Converter</a></li>
           <li class='tab'><a href="#zendesk">Zendesk</a></li>
+          <li class='tab'><a href="#diff">Diff</a></li>
           <li class='tab'><a href="#reference">Reference</a></li>
         </ul>
 
@@ -35,6 +38,10 @@
 
         <div id="zendesk" class="tab-content">
           <div id="zendesk-content"></div>
+        </div>
+
+        <div id="diff" class="diff tab-content">
+          <div id="diff-content"></div>
         </div>
 
         <div id="reference" class="reference tab-content">
