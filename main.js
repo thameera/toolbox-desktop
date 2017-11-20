@@ -12,7 +12,11 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1024, height: 640})
+  mainWindow = new BrowserWindow({
+    width: 1024,
+    height: 640,
+    title: `DSE Toolbox ${app.getVersion()}`
+  })
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -30,6 +34,10 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.on('page-title-updated', e => {
+    e.preventDefault()
   })
 
   const menu = defaultMenu(app, shell)
