@@ -1,6 +1,7 @@
 ;(function($) {
 
   const r = require(__dirname + '/../lib/reference')
+  const u = require(__dirname + '/../lib/utils')
 
   const ID = 'REFERENCE-PLUGIN'
 
@@ -13,7 +14,6 @@
 
       this.setupUI()
       this.setupCallbacks()
-      this.setupReferences()
       this.updateUI('ascii')
     }
 
@@ -23,6 +23,7 @@
           <div class="list">
             <select size="10" id="select">
               <option value="ascii" selected>ASCII Chart</option>
+              <option value="httpstatuses">HTTP Statuses</option>
             </select>
           </div>
           <div class="results">
@@ -31,6 +32,10 @@
       `)
 
       this.$el.append(this.$topDiv)
+
+      const $res = this.$topDiv.find('.results')
+      $res.append(this.generateAsciiTable())
+      $res.append(this.generateHttpStatuses())
     }
 
     setupCallbacks() {
@@ -41,15 +46,9 @@
       })
     }
 
-    setupReferences() {
-      this.refs = {
-        ascii: this.generateAsciiTable()
-      }
-    }
-
     generateAsciiTable() {
       const $table = $(`
-        <table class="ascii" border="1">
+        <table class="ascii nodisplay" border="1">
           <tr>
             <th>Dec</th>
             <th>Hex</th>
@@ -73,10 +72,33 @@
       return $table
     }
 
+    generateHttpStatuses() {
+      const $table = $(`
+        <table class="httpstatuses nodisplay" border="1">
+          <tr>
+            <th>Code</th>
+            <th>Description</th>
+          </tr>
+        </table>
+      `)
+      r.httpstatuses.forEach(row => {
+        const code = row.link ? `<a xhref="${row.link}">${row.code}</a>` : `${row.code}`
+        $table.append($(`
+          <tr ${row.heading ? 'class="heading"' : ''}>
+            <td>${code}</td>
+            <td>${row.msg}</td>
+          </tr>
+        `))
+      })
+      $table.find('a').click(function(e) {
+        u.openBrowser($(this).attr('xhref'))
+      })
+      return $table
+    }
+
     updateUI(val) {
-      const $results = this.$topDiv.find('.results')
-      $results.empty()
-      $results.append(this.refs[val])
+      this.$topDiv.find('.nodisplay').hide()
+      this.$topDiv.find(`.${val}`).show()
     }
   }
 

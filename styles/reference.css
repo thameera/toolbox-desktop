@@ -28,12 +28,33 @@
   bottom: 0;
 }
 
+.reference .nodisplay {
+  display: none;
+}
+
 .reference .results table {
   border-collapse: collapse;
   text-align: center
 }
 
-.reference table.ascii td,
-.reference table.ascii th {
+.reference table td,
+.reference table th {
   padding: 6px;
+}
+
+.reference table th {
+  background-color: lightgrey;
+}
+
+.reference table tr.heading {
+  font-weight: bold;
+}
+
+.reference table.httpstatuses td:nth-child(2) {
+  text-align: left;
+}
+
+.reference table.httpstatuses a {
+  cursor: pointer;
+  color: navy;
 }
