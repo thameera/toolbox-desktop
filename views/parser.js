@@ -26,7 +26,7 @@
     }
 
     setup() {
-      this.$text = $('<textarea rows="6" class="tab-focus input" placeholder="Paste a URL, JWT, SAML token, JSON or UserAgent string"></textarea>')
+      this.$text = $('<textarea rows="6" class="tab-focus input" placeholder="Paste a URL, JWT, SAML token, JSON, XML, or UserAgent string"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
 

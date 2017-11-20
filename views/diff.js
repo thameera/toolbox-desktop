@@ -25,7 +25,7 @@
           <table class="inputs">
             <tr>
               <td class="input-left">
-                <textarea class="left" placeholder="Paste text or JSON"></textarea>
+                <textarea class="left tab-focus" placeholder="Paste text or JSON"></textarea>
               </td>
               <td class="input-right">
                 <textarea class="right" placeholder="Paste text or JSON"></textarea>
