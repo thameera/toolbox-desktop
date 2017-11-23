@@ -72,7 +72,9 @@
         return this.showUrl(urlFields)
       }
 
-      const jwtFields = jwtParser(text)
+      // In JWTs, support parsing if there are newlines in-between as well
+      // Some HAR parsers split the params into lines
+      const jwtFields = jwtParser(text) || jwtParser(text.replace(/\n/g, ''))
       if (jwtFields) {
         return this.showJWT(jwtFields)
       }
