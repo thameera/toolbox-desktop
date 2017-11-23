@@ -1,3 +1,13 @@
+.diff .examples {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.diff .examples select {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .diff .diffviewer-top {
   margin: 10px;
 }
@@ -9,4 +19,9 @@
 .diff table.inputs textarea {
   width: 98%;
   height: 100px;
+}
+
+.diff .minilabel {
+  font-family: 'Courier';
+  font-size: 12px;
 }

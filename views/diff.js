@@ -7,6 +7,7 @@
   })
   const formatters = require('jsondiffpatch/src/formatters')
   const JSON5 = require('json5')
+  const examples = require(__dirname + '/../lib/examples/diff-examples')
 
   const ID = 'DIFF-PLUGIN'
 
@@ -20,6 +21,8 @@
     }
 
     setupUI() {
+      this.setupExamples()
+
       this.$topDiv = $(`
         <div class="diffviewer-top">
           <table class="inputs">
@@ -40,6 +43,31 @@
 
       this.$el.append(this.$topDiv)
     }
+
+    setupExamples() {
+      const $div = $('<div class="examples">')
+      $div.append('<span class="minilabel">Examples</span>')
+
+      const $select = $('<select>')
+      $select.append($(`<option value="-1">-- select one --</option>`))
+      examples.forEach((ex, i) => {
+        $select.append($(`<option value="${i}">${ex.name}</option>`))
+      })
+      $div.append($select)
+
+      const $btn = $('<button>Try</button>')
+      $btn.click(() => {
+        const val = $select.find('option:selected').val()
+        if (val === '-1') return
+        const diff = examples[Number(val)]
+        this.$el.find('textarea.left').val(diff.left)
+        this.$el.find('textarea.right').val(diff.right).trigger('input')
+      })
+      $div.append($btn)
+
+      this.$el.append($div)
+    }
+
 
     setupCallbacks() {
       const $inputs = this.$topDiv.find('.inputs textarea')
