@@ -8,6 +8,7 @@
   const formatters = require('jsondiffpatch/src/formatters')
   const JSON5 = require('json5')
   const examples = require(__dirname + '/../lib/examples/diff-examples')
+  const u = require(__dirname + '/../lib/utils')
 
   const ID = 'DIFF-PLUGIN'
 
@@ -76,8 +77,8 @@
         const left = $inputs.first().val()
         const right = $inputs.last().val()
         try {
-          const jleft = JSON5.parse(left)
-          const jright = JSON5.parse(right)
+          const jleft = JSON5.parse(u.sanitizeJSONString(left))
+          const jright = JSON5.parse(u.sanitizeJSONString(right))
           this.showDiff(jleft, jright)
         } catch (e) {
           this.showDiff(left, right)

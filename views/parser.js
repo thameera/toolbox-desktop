@@ -7,6 +7,7 @@
   const xmlParser = require(__dirname + '/../lib/parsers/xml-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
   const examples = require(__dirname + '/../lib/examples/parser-examples')
+  const u = require(__dirname + '/../lib/utils')
 
   const ID = 'PARSER-PLUGIN'
 
@@ -84,7 +85,7 @@
         return this.showSAML(res)
       } catch (e) {}
 
-      const json = jsonParser(text)
+      const json = jsonParser(text) || jsonParser(u.sanitizeJSONString(text))
       if (json) {
         return this.showJSON(json)
       }
