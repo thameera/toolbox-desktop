@@ -1,5 +1,15 @@
-.parser textarea.input {
+.parser .examples {
   margin-top: 10px;
+  text-align: center;
+}
+
+.parser .examples select {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.parser textarea.input {
+  margin-top: 5px;
   width: 95%;
 }
 
@@ -58,4 +68,9 @@
 .parser div.heading {
   font-family: 'Courier';
   margin-top: 5px;
+}
+
+.parser .minilabel {
+  font-family: 'Courier';
+  font-size: 12px;
 }

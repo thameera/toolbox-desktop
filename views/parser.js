@@ -6,6 +6,7 @@
   const jsonParser = require(__dirname + '/../lib/parsers/json-parser')
   const xmlParser = require(__dirname + '/../lib/parsers/xml-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
+  const examples = require(__dirname + '/../lib/parsers/examples')
 
   const ID = 'PARSER-PLUGIN'
 
@@ -26,6 +27,8 @@
     }
 
     setup() {
+      this.setupExamples()
+
       this.$text = $('<textarea rows="6" class="tab-focus input" placeholder="Paste a URL, JWT, SAML token, JSON, XML, or UserAgent string"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
@@ -34,6 +37,29 @@
 
       this.$el.append(this.$text)
       this.$el.append(this.$results)
+    }
+
+    setupExamples() {
+      const $div = $('<div class="examples">')
+      $div.append('<span class="minilabel">Examples</span>')
+
+      const $select = $('<select>')
+      $select.append($(`<option value="-1">-- select one --</option>`))
+      examples.forEach((ex, i) => {
+        $select.append($(`<option value="${i}">${ex.name}</option>`))
+      })
+      $div.append($select)
+
+      const $btn = $('<button>Try</button>')
+      $btn.click(() => {
+        const val = $select.find('option:selected').val()
+        if (val === '-1') return
+        const str = examples[Number(val)].value
+        this.$el.find('textarea.input').val(str).trigger('input')
+      })
+      $div.append($btn)
+
+      this.$el.append($div)
     }
 
     async start() {
