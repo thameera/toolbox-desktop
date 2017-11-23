@@ -6,7 +6,7 @@
   const jsonParser = require(__dirname + '/../lib/parsers/json-parser')
   const xmlParser = require(__dirname + '/../lib/parsers/xml-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
-  const examples = require(__dirname + '/../lib/parsers/examples')
+  const examples = require(__dirname + '/../lib/examples/parser-examples')
 
   const ID = 'PARSER-PLUGIN'
 
