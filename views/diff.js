@@ -1,5 +1,7 @@
 ;(function($) {
 
+  const gitDiff = require('git-diff')
+  const diff2html = require('diff2html').Diff2Html
   const jsondiffpatch = require('jsondiffpatch').create({
     textDiff: {
       minLength: 60
@@ -79,9 +81,9 @@
         try {
           const jleft = JSON5.parse(u.sanitizeJSONString(left))
           const jright = JSON5.parse(u.sanitizeJSONString(right))
-          this.showDiff(jleft, jright)
+          this.showJSONDiff(jleft, jright)
         } catch (e) {
-          this.showDiff(left, right)
+          this.showTextDiff(left, right)
         }
       })
 
@@ -90,7 +92,14 @@
       })
     }
 
-    showDiff(left, right) {
+    showTextDiff(left, right) {
+      const diff = gitDiff(left, right)
+      const gdiff = `diff --git a/x b/x\n${diff}`
+      const html = diff2html.getPrettyHtml(gdiff)
+      this.$topDiv.find('.output').empty().append($(html))
+    }
+
+    showJSONDiff(left, right) {
       const delta = jsondiffpatch.diff(left, right)
       const html = formatters.html.format(delta, left)
       this.$topDiv.find('.output').empty().append($(html))

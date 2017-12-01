@@ -25,3 +25,8 @@
   font-family: 'Courier';
   font-size: 12px;
 }
+
+/* Hide diff2html header */
+.diff .d2h-file-header {
+  display: none;
+}
