@@ -70,6 +70,7 @@
             <div>
               <button id="trim">Trim</button>
               <button id="reverse">Reverse</button>
+              <button id="remove-newlines">Remove Newlines</button>
             </div>
             <div>
               <input type="text" id="replace-src" placeholder="replace" size="10"/>
@@ -160,6 +161,7 @@
       bind('to-lower', c.toLower)
       bind('trim', c.trim)
       bind('reverse', c.reverse)
+      bind('remove-newlines', c.removeNewlines)
       bind('replace', c.replace, 'replace-src', 'replace-dest')
       bind('occurrences', c.countOccurrences, 'occurrences-text')
       bind('occurrencesi', c.countOccurrencesI, 'occurrences-text')
