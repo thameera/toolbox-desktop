@@ -24,7 +24,7 @@
     "codemirror": "^5.31.0",
     "diff2html": "^2.3.2",
     "electron-default-menu": "^1.0.1",
-    "git-diff": "^2.0.4",
+    "git-diff": "thameera/git-diff",
     "he": "^1.1.1",
     "json5": "^0.5.1",
     "jsondiffpatch": "^0.2.5",
