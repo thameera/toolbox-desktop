@@ -23,6 +23,10 @@ body {
   color: black;
   text-decoration: none;
 }
+
+.right-tab {
+  float: right;
+}
 /* END easy-tabs style overrides */
 
 .parser-container {

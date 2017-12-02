@@ -4,6 +4,7 @@
   require('./views/converter.js')
   require('./views/diff.js')
   require('./views/reference.js')
+  require('./views/about.js')
 
   $('#tab-container').easytabs({
     animationSpeed: 'fast'
@@ -23,6 +24,8 @@
     $('#diff-content').diffviewer()
 
     $('#reference-content').reference()
+
+    $('#about-content').about()
   } catch(e) {
     // Packaging errors will cause this line to be reached
     alert(e)

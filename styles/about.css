@@ -1,0 +1,25 @@
+.about .about-content {
+  position: relative;
+}
+
+.about .about-top {
+  position: absolute;
+  text-align: center;
+  top: 35%;
+  left: 0;
+  right: 0;
+}
+
+.about h2 {
+  font-family: Courier;
+}
+
+.about a {
+  cursor: pointer;
+  color: navy;
+  font-size: 14px;
+}
+
+.about a:hover {
+  color: cornflowerblue;
+}
