@@ -39,3 +39,7 @@
   text-decoration: none;
   font-family: Courier;
 }
+
+.zendesk .zd-bk-list .zd-bk-count span {
+  font-family: Courier
+}

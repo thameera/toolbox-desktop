@@ -22,6 +22,7 @@
           <span class="zd-bk-header">Bookmarks </span>
           <button class="zd-refresh-btn">Refresh</button>
           <ul></ul>
+          <div class="zd-bk-count"></div>
         </div>
       `)
 
@@ -36,6 +37,7 @@
         $btn.text('Refresh').prop('disabled', false)
         if (res.result === 'ok') {
           this.drawBookmarks(res.bookmarks)
+          this.$topDiv.find('.zd-bk-count').html(`Total bookmarks: <span>${res.count}</span>`)
         } else {
           u.showError($btn, `Failed to fetch bookmarks:\n${res.error}`)
         }
