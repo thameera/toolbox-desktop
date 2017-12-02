@@ -11,72 +11,59 @@
       this.el = element
       this.$el = $(element)
 
-      this.$settingsToggleBtn = null
-      this.$settingsDiv = null
-      this.$urlInput = null
-      this.$tokenInput = null
-      this.$settingsSaveBtn = null
-      this.$settingsTestBtn = null
-
-      this.$bookmarkInput = null
-      this.$bookmarkAddBtn = null
-      this.$bookmarkList = null
+      this.$topDiv = null
 
       this.setupUI()
       this.setupCallbacks()
     }
 
     setupUI() {
-      const $topDiv = $('<div class="zendesk">')
+      const $topDiv = $(`
+        <div class="zendesk">
+          <button class="zd-settings-btn">⚙️</button>
+          <div class="settings">
+            <div>Zendesk URL: </div>
+            <input type="text" size="50" placeholder="eg: https://mycompany.zendesk.com" class="url-input">
+            <div> Token: </div>
+            <input type="text" size="50" class="token-input">
+            <div class="zd-settings-btns">
+              <button class="zd-settings-save-btn">Save</button>
+              <button class="zd-settings-test-btn">Test</button>
+            </div>
+            <hr>
+          </div>
+          <div>Add new bookmark:
+            <input type="number" class="tab-focus bookmark-input">
+            <button class="zd-add-btn">Add</button>
+            <hr>
+          </div>
+          <div class="zd-bk-list"></div>
+        </div>
+      `)
 
-      this.$settingsToggleBtn = $('<button class="zd-settings-btn">⚙️</button>')
-      $topDiv.append(this.$settingsToggleBtn)
-
-      const $settingsDiv = $('<div class="settings">')
-      $settingsDiv.append($('<div>Zendesk URL: </div>'))
-      this.$urlInput = $('<input type="text" size="50" placeholder="eg: https://mycompany.zendesk.com">')
-      $settingsDiv.append(this.$urlInput)
-      $settingsDiv.append($('<div> Token: </div>'))
-      this.$tokenInput = $('<input type="text" size="50">')
-      const $settingsBtns = $('<div class="zd-settings-btns">')
-      $settingsDiv.append(this.$tokenInput)
-      this.$settingsSaveBtn = $('<button class="zd-settings-save-btn">Save</button>')
-      $settingsBtns.append(this.$settingsSaveBtn)
-      this.$settingsTestBtn = $('<button class="zd-settings-test-btn">Test</button>')
-      $settingsBtns.append(this.$settingsTestBtn)
-      $settingsDiv.append($settingsBtns)
-      $settingsDiv.append($('<hr>'))
-      $topDiv.append($settingsDiv)
-      this.$settingsDiv = $settingsDiv
-
-      const $bkDiv = $('<div>Add new bookmark: </div>')
-      this.$bookmarkInput = $('<input type="number" class="tab-focus">')
-      this.$bookmarkAddBtn = $('<button class="zd-add-btn">Add</button>')
-      this.$bookmarkList = $('<div>')
-      this.$bookmarkList.zendeskBookmarkList()
-
-      $bkDiv.append(this.$bookmarkInput)
-      $bkDiv.append(this.$bookmarkAddBtn)
-      $bkDiv.append($('<hr>'))
-      $topDiv.append($bkDiv)
-      $topDiv.append(this.$bookmarkList)
+      $topDiv.find('.zd-bk-list').zendeskBookmarkList()
 
       this.$el.append($topDiv)
+      this.$topDiv = $topDiv
     }
 
     setupCallbacks() {
-      this.$settingsToggleBtn.click(this.toggleSettings.bind(this))
+      const $top = this.$topDiv
+      $top.find('.zd-settings-btn').click(this.toggleSettings.bind(this))
 
-      this.$settingsSaveBtn.click(() => {
-        const saved = zdManager.saveSettings(this.$urlInput.val().trim(), this.$tokenInput.val().trim())
+      const $saveBtn = $top.find('.zd-settings-save-btn')
+      const $urlInput = $top.find('.url-input')
+      const $tokenInput = $top.find('.token-input')
+      $saveBtn.click(() => {
+        const saved = zdManager.saveSettings($urlInput.val().trim(), $tokenInput.val().trim())
         if (saved) {
-          u.showSuccess(this.$settingsSaveBtn, 'Settings saved')
-          this.$urlInput.val('')
-          this.$tokenInput.val('')
+          u.showSuccess($saveBtn, 'Settings saved')
+          $urlInput.val('')
+          $tokenInput.val('')
         }
       })
 
-      const $testBtn = this.$settingsTestBtn
+      const $testBtn = $top.find('.zd-settings-test-btn')
       $testBtn.click(async () => {
         $testBtn.text('Testing...').prop('disabled', true)
         const res = await zdManager.test()
@@ -88,17 +75,18 @@
         }
       })
 
-      this.$bookmarkAddBtn.click(this.addBookmark.bind(this))
-      this.$bookmarkInput.keypress(e => {
+      const $bookmarkInput = $top.find('.bookmark-input')
+      $top.find('.zd-add-btn').click(this.addBookmark.bind(this))
+      $bookmarkInput.keypress(e => {
         if (e.keyCode === 13) {
           this.addBookmark()
         }
       })
-      this.$bookmarkInput.click(() => this.$bookmarkInput.select())
+      $bookmarkInput.click(() => $bookmarkInput.select())
     }
 
     toggleSettings() {
-      const $div = this.$settingsDiv
+      const $div = this.$topDiv.find('.settings')
       const display = $div.css('display')
       if (display === 'none') {
         $div.css('display', 'block')
@@ -108,8 +96,8 @@
     }
 
     async addBookmark() {
-      const $btn = this.$bookmarkAddBtn
-      const $input = this.$bookmarkInput
+      const $btn = this.$topDiv.find('.zd-add-btn')
+      const $input = this.$topDiv.find('.bookmark-input')
       $btn.text('Adding...').prop('disabled', true)
       const res = await zdManager.addBookmark($input.val().trim())
       if (res.result === 'added') {

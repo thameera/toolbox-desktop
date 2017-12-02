@@ -10,29 +10,26 @@
       this.el = element
       this.$el = $(element)
 
-      this.$refreshBtn = null
-      this.$ul = null
+      this.$topDiv = null
 
       this.setupUI()
       this.setupCallbacks()
     }
 
     setupUI() {
-      const $topDiv = $('<div class="zd-bk-list">')
+      this.$topDiv = $(`
+        <div class="zd-bk-list">
+          <span class="zd-bk-header">Bookmarks </span>
+          <button class="zd-refresh-btn">Refresh</button>
+          <ul></ul>
+        </div>
+      `)
 
-      const $header = $('<span class="zd-bk-header">Bookmarks </span>')
-      $topDiv.append($header)
-      this.$refreshBtn = $('<button class="zd-refresh-btn">Refresh</button>')
-      $topDiv.append(this.$refreshBtn)
-
-      this.$ul = $('<ul>')
-      $topDiv.append(this.$ul)
-
-      this.$el.append($topDiv)
+      this.$el.append(this.$topDiv)
     }
 
     setupCallbacks() {
-      const $btn = this.$refreshBtn
+      const $btn = this.$topDiv.find('.zd-refresh-btn')
       $btn.click(async () => {
         $btn.text('Refreshing...').prop('disabled', true)
         const res = await zdManager.fetchBookmarks(10)
@@ -46,7 +43,7 @@
     }
 
     drawBookmarks(bookmarks) {
-      const $ul = this.$ul
+      const $ul = this.$topDiv.find('ul')
       $ul.empty()
       bookmarks.forEach(b => {
         const id = b.ticket.id
