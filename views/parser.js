@@ -23,6 +23,7 @@
       this.$el = $(element)
       this.$text = null
       this.$results = null
+      this.$overlay = null
 
       this.setup()
     }
@@ -30,13 +31,19 @@
     setup() {
       this.setupExamples()
 
+      const $textContainer = $('<div class="text-container">')
+
       this.$text = $('<textarea rows="6" class="tab-focus input" placeholder="Paste a URL, JWT, SAML token, JSON, XML, or UserAgent string"></textarea>')
       this.$text.bind('input propertychange', this.start.bind(this))
       this.$text.click(() => this.$text.select())
+      $textContainer.append(this.$text)
+
+      this.$overlay = $('<div class="overlay"></div>')
+      $textContainer.append(this.$overlay)
 
       this.$results = $('<div class="parser-results"></div>')
 
-      this.$el.append(this.$text)
+      this.$el.append($textContainer)
       this.$el.append(this.$results)
     }
 
@@ -66,10 +73,14 @@
     async start() {
       const text = this.$text.val().trim()
 
-      if (!text) return this.$results.empty()
+      if (!text) {
+        this.setOverlay()
+        return this.$results.empty()
+      }
 
       const urlFields = urlParser(text)
       if (urlFields) {
+        this.setOverlay('URL')
         return this.showUrl(urlFields)
       }
 
@@ -77,21 +88,25 @@
       // Some HAR parsers split the params into lines
       const jwtFields = jwtParser(text) || jwtParser(text.replace(/\n/g, ''))
       if (jwtFields) {
+        this.setOverlay('JWT')
         return this.showJWT(jwtFields)
       }
 
       try {
         const res = await samlParser(text)
+        this.setOverlay('SAML Token')
         return this.showSAML(res)
       } catch (e) {}
 
       const json = jsonParser(text) || jsonParser(u.sanitizeJSONString(text))
       if (json) {
+        this.setOverlay('JSON')
         return this.showJSON(json)
       }
 
       try {
         const res = await xmlParser(text)
+        this.setOverlay('XML')
         return this.showXML(res, true)
       } catch (e) {}
 
@@ -99,11 +114,21 @@
       // since it recognizes any text with a UA string inside as a UA
       const ua = uaParser(text)
       if (ua) {
+        this.setOverlay('User-Agent string')
         return this.showUA(ua)
       }
 
       // If all parsers fail, show charactr count
+      this.setOverlay()
       this.showCharCount(text)
+    }
+
+    setOverlay(text) {
+      if (text) {
+        this.$overlay.text(text).show()
+      } else {
+        this.$overlay.hide()
+      }
     }
 
     replaceResult($result) {

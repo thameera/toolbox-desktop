@@ -8,9 +8,27 @@
   margin-right: 5px;
 }
 
+.parser .text-container {
+  position: relative;
+}
+
 .parser textarea.input {
   margin-top: 5px;
   width: 95%;
+}
+
+.parser .overlay {
+  display: none;
+  position: absolute;
+  right: 7%;
+  bottom: 5px;
+  background-color: yellow;
+  opacity: 0.9;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Courier;
+  padding: 1px 10px;
+  border: 1px outset;
 }
 
 .parser .parser-results {
