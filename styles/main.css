@@ -35,3 +35,8 @@ body {
 .parser-container * {
   text-align: left;
 }
+
+button.collapse-parser {
+  display: inline;
+  float: right;
+}
