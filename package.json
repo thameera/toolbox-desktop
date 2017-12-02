@@ -18,10 +18,10 @@
   "license": "MIT",
   "devDependencies": {
     "electron": "~1.7.8",
-    "electron-builder": "^19.43.4"
+    "electron-builder": "^19.47.1"
   },
   "dependencies": {
-    "codemirror": "^5.31.0",
+    "codemirror": "^5.32.0",
     "diff2html": "^2.3.2",
     "electron-default-menu": "^1.0.1",
     "git-diff": "thameera/git-diff",
@@ -29,7 +29,7 @@
     "json5": "^0.5.1",
     "jsondiffpatch": "^0.2.5",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.19.1",
+    "moment": "^2.19.3",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
     "saml20": "^0.1.14",
