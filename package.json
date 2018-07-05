@@ -21,7 +21,7 @@
     "electron-builder": "^20.19.1"
   },
   "dependencies": {
-    "codemirror": "^5.32.0",
+    "codemirror": "^5.39.0",
     "diff2html": "^2.3.2",
     "electron-default-menu": "^1.0.1",
     "git-diff": "thameera/git-diff",
@@ -29,13 +29,13 @@
     "json5": "^0.5.1",
     "jsondiffpatch": "^0.2.5",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.19.3",
-    "request": "^2.83.0",
+    "moment": "^2.22.2",
+    "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "saml20": "^0.1.14",
-    "url-parse": "^1.2.0",
-    "useragent": "^2.2.1",
-    "uuid": "^3.1.0",
+    "url-parse": "^1.4.1",
+    "useragent": "^2.3.0",
+    "uuid": "^3.3.2",
     "word-count": "^0.2.2",
     "xml-formatter": "^1.0.1",
     "xml2js": "^0.4.19"
