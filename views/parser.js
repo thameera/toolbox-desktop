@@ -78,37 +78,47 @@
         return this.$results.empty()
       }
 
-      const urlFields = urlParser(text)
-      if (urlFields) {
-        this.setOverlay('URL')
-        return this.showUrl(urlFields)
+      if (text.includes('://')) {
+        const urlFields = urlParser(text)
+        if (urlFields) {
+          this.setOverlay('URL')
+          return this.showUrl(urlFields)
+        }
       }
 
-      // In JWTs, support parsing if there are newlines in-between as well
-      // Some HAR parsers split the params into lines
-      const jwtFields = jwtParser(text) || jwtParser(text.replace(/\n/g, ''))
-      if (jwtFields) {
-        this.setOverlay('JWT')
-        return this.showJWT(jwtFields)
+      if (text.startsWith('eyJ')) {
+        // In JWTs, support parsing if there are newlines in-between as well
+        // Some HAR parsers split the params into lines
+        const jwtFields = jwtParser(text) || jwtParser(text.replace(/\n/g, ''))
+        if (jwtFields) {
+          this.setOverlay('JWT')
+          return this.showJWT(jwtFields)
+        }
       }
 
-      try {
-        const res = await samlParser(text)
-        this.setOverlay('SAML Token')
-        return this.showSAML(res)
-      } catch (e) {}
-
-      const json = jsonParser(text) || jsonParser(u.sanitizeJSONString(text))
-      if (json) {
-        this.setOverlay('JSON')
-        return this.showJSON(json)
+      if (text.startsWith('PHN')) {
+        try {
+          const res = await samlParser(text)
+          this.setOverlay('SAML Token')
+          return this.showSAML(res)
+        } catch (e) {}
       }
 
-      try {
-        const res = await xmlParser(text)
-        this.setOverlay('XML')
-        return this.showXML(res, true)
-      } catch (e) {}
+      if (text.startsWith('{') || text.startsWith('[')) {
+        const json = jsonParser(text) || jsonParser(u.sanitizeJSONString(text))
+        if (json) {
+          this.setOverlay('JSON')
+          return this.showJSON(json)
+        }
+      }
+
+      if (text.startsWith('<')) {
+        try {
+          const res = await xmlParser(text)
+          this.setOverlay('XML')
+          return this.showXML(res, true)
+        } catch (e) {}
+      }
 
       // UA parsing should be done at the end
       // since it recognizes any text with a UA string inside as a UA
