@@ -62,6 +62,12 @@
               <button id="html-encode">HTML Encode</button>
               <button id="html-decode">HTML Decode</button>
             </div>
+            <div class="label">Special Encodings</div>
+            <div>
+              <span class="mini-label">SAML AuthnRequest</span>
+              <button id="samlreq-encode">Encode</button>
+              <button id="samlreq-decode">Decode</button>
+            </div>
             <div class="label">Text Processing</div>
             <div>
               <button id="to-upper">To Uppercase</button>
@@ -172,6 +178,9 @@
       bind('cur-time-formatted', c.curTimeFormatted)
       bind('cur-time-unix-ms', c.curTimeUnixMilli)
       bind('cur-time-unix', c.curTimeUnix)
+
+      bind('samlreq-encode', c.samlReqEncode)
+      bind('samlreq-decode', c.samlReqDecode)
 
       bind('generate-uuid', c.uuid)
       bind('ip', c.ip)
