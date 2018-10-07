@@ -1,6 +1,6 @@
 {
   "name": "dse-toolbox",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "DSE Toolbox",
   "main": "main.js",
   "scripts": {
