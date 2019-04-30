@@ -96,7 +96,7 @@
         }
       }
 
-      if (text.startsWith('PH') || text.startsWith('PD')) {
+      if (text.startsWith('P')) {
         try {
           const res = await samlParser(text)
           this.setOverlay('SAML Token')
