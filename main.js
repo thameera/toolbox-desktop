@@ -15,7 +15,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 640,
-    title: `DSE Toolbox ${app.getVersion()}`
+    title: `DSE Toolbox ${app.getVersion()}`,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
 
   // and load the index.html of the app.
