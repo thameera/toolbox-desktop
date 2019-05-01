@@ -43,7 +43,9 @@
 
 .converter button {
   padding: 1px;
+  padding-right: 2px;
   opacity: 0.7;
+  border-radius: 4px;
 }
 
 .converter button:hover {
