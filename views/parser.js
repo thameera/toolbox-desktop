@@ -122,10 +122,13 @@
 
       // UA parsing should be done at the end
       // since it recognizes any text with a UA string inside as a UA
-      const ua = uaParser(text)
-      if (ua) {
-        this.setOverlay('User-Agent string')
-        return this.showUA(ua)
+      // Also, skip the check if string is extremely long
+      if (text.length < 200) {
+        const ua = uaParser(text)
+        if (ua) {
+          this.setOverlay('User-Agent string')
+          return this.showUA(ua)
+        }
       }
 
       // If all parsers fail, show charactr count
