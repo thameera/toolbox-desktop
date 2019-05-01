@@ -98,8 +98,8 @@
 
       if (text.startsWith('P')) {
         try {
-          const res = await samlParser(text)
-          this.setOverlay('SAML Token')
+          const res = await samlParser.responseParser(text)
+          this.setOverlay('SAML Response')
           return this.showSAML(res)
         } catch (e) {}
       }
@@ -119,6 +119,12 @@
           return this.showXML(res, true)
         } catch (e) {}
       }
+
+      try {
+        const res = samlParser.requestParser(text)
+        this.setOverlay('SAML Request')
+        return this.showXML(res, true)
+      } catch(e) {}
 
       // UA parsing should be done at the end
       // since it recognizes any text with a UA string inside as a UA
@@ -231,10 +237,15 @@
 
       const $heading1 = $(`<div class="heading">${title}</div>`)
       $heading1.append(createCopyBtn(content))
-      const $btn = $(`<button class="xml-btn">${btnLabel}</button>`).click(() => {
-        this.showXML(xmlRes, !isXML)
-      })
-      $heading1.append($btn)
+
+      // Show 'JSON' button only if JSON is present in input
+      if (xmlRes.json) {
+        const $btn = $(`<button class="xml-btn">${btnLabel}</button>`).click(() => {
+          this.showXML(xmlRes, !isXML)
+        })
+        $heading1.append($btn)
+      }
+
       $topDiv.append($heading1)
 
       const $container = $('<div>')
