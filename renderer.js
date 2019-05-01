@@ -1,6 +1,5 @@
 ;(function() {
   require('./views/parser.js')
-  require('./views/zendesk.js')
   require('./views/converter.js')
   require('./views/diff.js')
   require('./views/reference.js')
@@ -16,8 +15,6 @@
   try {
     $('#parser-left').parser()
     $('#parser-right-inner').parser()
-
-    $('#zendesk-content').zendesk()
 
     $('#converter-content').converter()
 
