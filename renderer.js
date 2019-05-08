@@ -30,7 +30,7 @@
 
   // Collapse/expand right parser
   const $collapse = $('button.collapse-parser')
-  let collapsed = false
+  let collapsed = true
   $collapse.click(() => {
     if (collapsed) {
       $('#parser-left').css({width: '50%'})

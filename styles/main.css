@@ -30,10 +30,21 @@ body {
 /* END easy-tabs style overrides */
 
 .parser-container {
-  width: 50%;
   float: left;
   display: inline;
   text-align: center;
+}
+
+#parser-left {
+  width: 100%;
+}
+
+#parser-right {
+  width: 0%;
+}
+
+#parser-right-inner {
+  display: none;
 }
 
 .parser-container * {
