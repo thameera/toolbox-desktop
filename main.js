@@ -17,7 +17,9 @@ function createWindow () {
     height: 640,
     title: `DSE Toolbox ${app.getVersion()}`,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     }
   })
 

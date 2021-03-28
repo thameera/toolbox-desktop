@@ -71,6 +71,7 @@
   margin-left: 2px;
   margin-right: 5px;
   border-radius: 4px;
+  border-color: #ccc;
 }
 
 .parser .copy-btn:hover {

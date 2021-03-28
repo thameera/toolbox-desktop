@@ -46,6 +46,8 @@
   padding-right: 2px;
   opacity: 0.7;
   border-radius: 4px;
+  border-color: #ccc;
+  margin-bottom: 5px;
 }
 
 .converter button:hover {
