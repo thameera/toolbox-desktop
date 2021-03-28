@@ -15,7 +15,8 @@ yarn start
 yarn run dist
 ```
 
-Binary will be available in the `dist/` directory.
+Binary will be available in the `./dist/mac/` directory.
+Due to Apple notarization issues, the zip file in `./dist/` won't work. Create the release file by zipping the binary in `./dist/mac/`
 
 ## Download
 
