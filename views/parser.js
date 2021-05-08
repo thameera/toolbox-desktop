@@ -298,7 +298,26 @@
     }
 
     showCert(cert) {
-      this.generateTable(cert.fields)
+      const $topDiv = $('<div>')
+
+      const $table = this.getTable(cert.fields)
+      $topDiv.append($table)
+
+      const $heading1 = $('<div class="heading">Public key</div>')
+      $heading1.append(createCopyBtn(cert.pubkey))
+      $topDiv.append($heading1)
+      const $pubKey = $(`<textarea rows="4" class="input">${cert.pubkey}</textarea>`)
+      $topDiv.append($pubKey)
+
+      if (cert.pem) {
+        const $heading2 = $('<div class="heading">PEM-formatted Certificate</div>')
+        $heading2.append(createCopyBtn(cert.pem))
+        $topDiv.append($heading2)
+        const $pem = $(`<textarea rows="4" class="input">${cert.pem}</textarea>`)
+        $topDiv.append($pem)
+      }
+
+      this.replaceResult($topDiv)
     }
 
     showCharCount(text) {
