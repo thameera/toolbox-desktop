@@ -226,6 +226,14 @@
       $container.append($pre)
     }
 
+    getSAMLWarning() {
+      const $note = $('<div>NOTE: Use <a xhref="https://samltool.io">samltool.io</a> for a better SAML decoding experience</div>')
+      $note.find('a').click(function() {
+        u.openBrowser($(this).attr('xhref'))
+      })
+      return $note
+    }
+
     showUrl(urlFields) {
       this.generateTable(urlFields)
     }
@@ -246,6 +254,11 @@
 
     showXML(xmlRes, isXML) {
       const $topDiv = $('<div>')
+
+      if (isXML && xmlRes.xml.includes('AuthnRequest')) {
+        const $note = this.getSAMLWarning()
+        $topDiv.append($note)
+      }
 
       const content = isXML ? xmlRes.xml : JSON.stringify(xmlRes.json)
       const title = isXML ? 'Prettified XML' : 'JSON Representation'
@@ -277,6 +290,9 @@
 
     showSAML(samlFields) {
       const $topDiv = $('<div>')
+
+      const $note = this.getSAMLWarning()
+      $topDiv.append($note)
 
       const $heading1 = $('<div class="heading">XML:</div>')
       $heading1.append(createCopyBtn(samlFields.xml))

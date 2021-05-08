@@ -95,3 +95,12 @@
   font-family: 'Courier';
   font-size: 12px;
 }
+
+.parser a {
+  cursor: pointer;
+  color: navy;
+}
+
+.parser a:hover {
+  color: cornflowerblue;
+}
