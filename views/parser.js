@@ -6,6 +6,7 @@
   const jsonParser = require(__dirname + '/../lib/parsers/json-parser')
   const xmlParser = require(__dirname + '/../lib/parsers/xml-parser')
   const uaParser = require(__dirname + '/../lib/parsers/ua-parser')
+  const x509Parser = require(__dirname + '/../lib/parsers/x509-parser')
   const examples = require(__dirname + '/../lib/examples/parser-examples')
   const u = require(__dirname + '/../lib/utils')
 
@@ -120,6 +121,16 @@
         } catch (e) {}
       }
 
+      if (text.startsWith('-----') || text.startsWith('MI')) {
+        try {
+          const cert = x509Parser(text)
+          if (cert) {
+            this.setOverlay('X.509 Certificate')
+            return this.showCert(cert)
+          }
+        } catch (e) {}
+      }
+
       try {
         const res = samlParser.requestParser(text)
         this.setOverlay('SAML Request')
@@ -157,6 +168,11 @@
     }
 
     generateTable(fields) {
+      const $table = this.getTable(fields)
+      this.replaceResult($table)
+    }
+
+    getTable(fields) {
       const $table = $('<table></table>')
       fields.forEach(f => {
         const $tr = $('<tr>')
@@ -175,7 +191,7 @@
         }
         $table.append($tr)
       })
-      this.replaceResult($table)
+      return $table
     }
 
     generateCodemirror($container, code, height) {
@@ -279,6 +295,10 @@
       $topDiv.append($json)
 
       this.replaceResult($topDiv)
+    }
+
+    showCert(cert) {
+      this.generateTable(cert.fields)
     }
 
     showCharCount(text) {
