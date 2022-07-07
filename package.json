@@ -29,7 +29,7 @@
     "json5": "^2.2.0",
     "jsondiffpatch": "^0.2.5",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "node-forge": "^0.10.0",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
