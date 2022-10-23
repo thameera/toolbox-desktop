@@ -3,8 +3,8 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-import './index.css'
+import './view/index.css'
 
-import './app.jsx'
+import './view/app.jsx'
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
