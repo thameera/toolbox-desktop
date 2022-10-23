@@ -1,5 +1,5 @@
 import { ContentCopy } from '@mui/icons-material'
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 import * as React from 'react'
 
 const ParserPane = () => {
@@ -22,7 +22,7 @@ const ParserPane = () => {
 
   const renderCopyButton = (str) => {
     return (
-      <Tooltip title="Copy">
+      <Tooltip title="Copy" placement="left">
         <IconButton
           sx={{ marginRight: '5px', minWidth: 'inherit', minHeight: 'inherit'}}
           variant="outlined"
@@ -58,7 +58,16 @@ const ParserPane = () => {
                     }}>
                       <>
                         {renderCopyButton(row.val)}
-                        {row.val}
+                        {row.tooltip && (
+                          <Tooltip title={row.tooltip} placement="right">
+                            <Box sx={{
+                              display: 'inline-block',
+                              textDecoration: 'underline',
+                              textDecorationStyle: 'dotted'
+                              }}>{row.val}</Box>
+                          </Tooltip>
+                        )}
+                        {!row.tooltip && row.val}
                       </>
                     </TableCell>
                   </TableRow>
