@@ -16,7 +16,7 @@ const Parser = () => {
     return isDualPane ? {
       display: 'grid',
       gridTemplateColumns: '50% 50%',
-      columnGap: '20px'
+      columnGap: '1%'
     } : {}
   }
 
@@ -28,16 +28,18 @@ const Parser = () => {
       display: isDualPane ?
        'inline-block' :
         pane === 1 ? 'inline-block' : 'none',
+      width: isDualPane ? '98%' : '100%'
     }
   }
 
   return (
-    <>
-      <div>
+    <Box>
+      <Box sx={{ marginBottom: '5px' }}>
         <Box sx={{ display: 'inline', fontStyle: 'italic' }}>Paste URLs, JWTs, and more</Box>
         <Box sx={{ display: 'inline', float: 'right' }}>
           <Tooltip title="Toggle dual pane">
             <IconButton
+              sx={{ padding: 0 }}
               size="small"
               onClick={() => setIsDualPane(!isDualPane)}
               >
@@ -45,7 +47,7 @@ const Parser = () => {
             </IconButton>
           </Tooltip>
         </Box>
-      </div>
+      </Box>
       <Box sx={getPaneContainerStyles()}>
         <Box sx={getPaneStyles(1)}>
           <ParserPane />
@@ -54,7 +56,7 @@ const Parser = () => {
           <ParserPane />
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 
