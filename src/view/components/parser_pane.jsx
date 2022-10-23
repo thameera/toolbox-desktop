@@ -75,11 +75,19 @@ const ParserPane = () => {
     <>
       <TextField
         sx={{ marginBottom: '10px' }}
+        inputProps={{
+          style: {
+            fontSize: 'small',
+          }
+        }}
+        size="small"
         multiline
         fullWidth
         rows={6}
         value={input}
         onChange={onChange}
+        onFocus={(e) => e.target.select()}
+        onClick={(e) => e.target.select()}
         />
 
       {parsedType === 'jwt' && renderJWT()}
