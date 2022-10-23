@@ -92,7 +92,7 @@ const ParserPane = () => {
         size="small"
         multiline
         fullWidth
-        rows={6}
+        rows={4}
         value={input}
         onChange={onChange}
         onFocus={(e) => e.target.select()}
