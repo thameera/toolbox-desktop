@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, clipboard } = require('electron');
 const parser_api = require('./api/parser_api')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -18,9 +18,22 @@ const createWindow = () => {
     },
   });
 
+  /* 
+   * Start registering IPC handlers
+   */
+  // Parser
   ipcMain.handle('parse', async (event, str) => {
     return await parser_api.parse(str)
   })
+
+  // Copy to clipboard
+  ipcMain.handle('copyToClipboard', async (event, str) => {
+    clipboard.writeText(str)
+  })
+
+  /*
+   * /End of IPC handlers
+   */
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);

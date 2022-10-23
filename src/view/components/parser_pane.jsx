@@ -1,4 +1,5 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material'
+import { ContentCopy } from '@mui/icons-material'
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 import * as React from 'react'
 
 const ParserPane = () => {
@@ -17,6 +18,21 @@ const ParserPane = () => {
       setParsedType('')
       setOutput({})
     }
+  }
+
+  const renderCopyButton = (str) => {
+    return (
+      <Tooltip title="Copy">
+        <IconButton
+          sx={{ marginRight: '5px', minWidth: 'inherit', minHeight: 'inherit'}}
+          variant="outlined"
+          size="small"
+          onClick={() => window.api.copyToClipboard(str)}
+          >
+            <ContentCopy fontSize="inherit" />
+          </IconButton>
+      </Tooltip>
+    )
   }
 
   const renderJWT = () => {
@@ -41,6 +57,7 @@ const ParserPane = () => {
                       padding: '1px'
                     }}>
                       <>
+                        {renderCopyButton(row.val)}
                         {row.val}
                       </>
                     </TableCell>
