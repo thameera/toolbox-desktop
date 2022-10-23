@@ -1,5 +1,6 @@
 module.exports = {
   "packagerConfig": {
+    "icon": "./assets/icon",
     "osxSign": {
       "hardened-runtime": true,
       "entitlements": "entitlements.plist",
