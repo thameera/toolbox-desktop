@@ -1,8 +1,18 @@
 {
-  "name": "toolbox",
-  "productName": "toolbox",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "name": "dse-toolbox",
+  "productName": "DSE Toolbox",
+  "version": "2.0.0",
+  "description": "DSE Toolbox",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thameera/toolbox"
+  },
+  "author": {
+    "name": "Thameera Senanayaka",
+    "email": "me@thameera.com"
+  },
+  "keywords": [],
+  "license": "MIT",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -11,12 +21,6 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
-  "keywords": [],
-  "author": {
-    "name": "Thameera Senanayaka",
-    "email": "me@thameera.com"
-  },
-  "license": "MIT",
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -66,6 +70,8 @@
     }
   },
   "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-react": "^7.18.6",
     "@electron-forge/cli": "^6.0.0-beta.67",
     "@electron-forge/maker-deb": "^6.0.0-beta.67",
     "@electron-forge/maker-rpm": "^6.0.0-beta.67",
@@ -73,12 +79,15 @@
     "@electron-forge/maker-zip": "^6.0.0-beta.67",
     "@electron-forge/plugin-webpack": "6.0.0-beta.67",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "babel-loader": "^8.2.5",
     "css-loader": "^6.0.0",
     "electron": "21.2.0",
     "node-loader": "^2.0.0",
     "style-loader": "^3.0.0"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
