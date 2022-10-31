@@ -105,9 +105,11 @@ const parseURL = (str, isPartialURL = false) => {
     const obj = { name: p[0], val: p[1] }
     if (p[0] === 'expires_in') {
       if (p[0] < 3600) {
-        obj.tooltip = `${p[1]/60} minute(s)`
+        const mins = p[1]/60
+        obj.tooltip = `${mins} minute${mins > 1 ? 's' : ''}`
       } else {
-        obj.tooltip = `${p[1]/3600} hour(s)`
+        const hrs = p[1]/3600
+        obj.tooltip = `${hrs} hour${hrs > 1 ? 's' : ''}`
       }
     }
     res.push(obj)
