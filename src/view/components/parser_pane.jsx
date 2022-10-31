@@ -35,7 +35,7 @@ const ParserPane = () => {
     )
   }
 
-  const renderJWT = () => {
+  const renderList = () => {
     return (
       <TableContainer component={Paper}>
         <Table size="small">
@@ -99,7 +99,7 @@ const ParserPane = () => {
         onClick={(e) => e.target.select()}
         />
 
-      {parsedType === 'jwt' && renderJWT()}
+      {['jwt', 'url'].includes(parsedType) && renderList()}
     </>
   )
 }
