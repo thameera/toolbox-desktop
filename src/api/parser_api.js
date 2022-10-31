@@ -20,9 +20,23 @@ const parse = async (str) => {
     } catch(e) {}
   }
 
+  /*
+   * Try URL parse if string includes '://'
+   */
   if (trimmedStr.includes('://')) {
     try {
       const res = parseURL(trimmedStr)
+      return res
+    } catch(e) {}
+  }
+
+  /*
+   * Try URL parse if it starts with '/'
+   * This is useful when pasting paths from Kibana, etc
+   */
+  if (trimmedStr.startsWith('/')) {
+    try {
+      const res = parseURL(`https://example.com${trimmedStr}`, true)
       return res
     } catch(e) {}
   }
@@ -61,7 +75,7 @@ const parseJWT = (str) => {
 /*
  * Parse URL
  */
-const parseURL = (str) => {
+const parseURL = (str, isPartialURL = false) => {
   const parsed = new URL(str)
   if (!parsed || !parsed.hostname) {
     throw new Error('Invalid URL')
@@ -69,10 +83,15 @@ const parseURL = (str) => {
 
   const res = []
 
-  const prot = parsed.protocol
-  res.push({ heading: 'URL' })
-  res.push({ name: 'Protocol', val: prot.substr(0, prot.length-1) })
-  res.push({ name: 'Hostname', val: parsed.hostname })
+  if (isPartialURL) {
+    // In case of partial URL, we don't add the part before the path to result
+    res.push({ heading: 'Partial URL' })
+  } else {
+    const prot = parsed.protocol
+    res.push({ heading: 'URL' })
+    res.push({ name: 'Protocol', val: prot.substr(0, prot.length-1) })
+    res.push({ name: 'Hostname', val: parsed.hostname })
+  }
   res.push({ name: 'Path', val: parsed.pathname })
 
   if (parsed.port) {
