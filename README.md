@@ -26,6 +26,8 @@ npm install
 
 ```sh
 npm start
+# or if you want to open Dev Tools on startup:
+DEBUG=true npm start
 ```
 
 ### Packaging for distribution
