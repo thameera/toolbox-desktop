@@ -1,6 +1,7 @@
-import { ContentCopy } from '@mui/icons-material'
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
 import * as React from 'react'
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Tooltip } from '@mui/material'
+import { ContentCopy } from '@mui/icons-material'
+import { JsonViewer } from '@textea/json-viewer'
 
 const ParserPane = () => {
   const [input, setInput] = React.useState('')
@@ -80,6 +81,12 @@ const ParserPane = () => {
     )
   }
 
+  const renderJSON = () => {
+    return (
+      <JsonViewer value={output} displayDataTypes={false} />
+    )
+  }
+
   return (
     <>
       <TextField
@@ -100,6 +107,7 @@ const ParserPane = () => {
         />
 
       {['jwt', 'url'].includes(parsedType) && renderList()}
+      {parsedType === 'json' && renderJSON()}
     </>
   )
 }

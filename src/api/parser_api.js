@@ -1,6 +1,7 @@
 const { default: jwtDecode } = require("jwt-decode")
 const { DateTime } = require("luxon")
 const URL = require('url-parse')
+const JSON5 = require('json5').default // https://github.com/json5/json5/issues/240
 
 const parse = async (str) => {
   if (!str || !str.trim()) {
@@ -39,6 +40,16 @@ const parse = async (str) => {
       const res = parseURL(`https://example.com${trimmedStr}`, true)
       return res
     } catch(e) {}
+  }
+  
+  /*
+   * Try JSON parse
+   */
+  if (trimmedStr.startsWith('{') || trimmedStr.startsWith('[')) {
+    try {
+      const res = parseJSON(trimmedStr)
+      return res
+    } catch (e) {}
   }
 
   return { error: 'Unknown format' }
@@ -126,6 +137,14 @@ const parseURL = (str, isPartialURL = false) => {
   }
 
   return { type: 'url', value: res }
+}
+
+/*
+ * JSON parse
+ */
+const parseJSON = (str) => {
+  const json = JSON5.parse(str)
+  return { type: 'json', value: json }
 }
 
 module.exports = {
